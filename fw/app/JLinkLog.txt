@@ -1,0 +1,62 @@
+T3954 000:008.331   SEGGER J-Link V6.94 Log File
+T3954 000:008.551   DLL Compiled: Jan  8 2021 13:01:30
+T3954 000:008.562   Logging started @ 2021-03-31 16:03
+T3954 000:008.573 - 8.576ms
+T3954 000:008.589 JLINK_SetWarnOutHandler(...)
+T3954 000:008.597 - 0.011ms
+T3954 000:008.606 JLINK_OpenEx(...)
+T3954 000:010.595   Firmware: J-Link V9 compiled Dec 13 2019 11:14:50
+T3954 000:010.815   Decompressing FW timestamp took 163 us
+T3954 000:018.066   Hardware: V9.60
+T3954 000:018.102   S/N: 69612235
+T3954 000:018.115   OEM: SEGGER
+T3954 000:018.127   Feature(s): RDI, GDB, FlashDL, FlashBP, JFlash
+T3954 000:019.455   TELNET listener socket opened on port 19021
+T3954 000:019.651   WEBSRV Starting webserver
+T3954 000:019.814   WEBSRV Webserver running on local port 19080
+T3954 000:019.826 - 11.224ms returns "O.K."
+T3954 000:019.851 JLINK_GetEmuCaps()
+T3954 000:019.865 - 0.017ms returns 0xB9FF7BBF
+T3954 000:019.881 JLINK_TIF_GetAvailable(...)
+T3954 000:020.078 - 0.203ms
+T3954 000:020.094 JLINK_SetErrorOutHandler(...)
+T3954 000:020.101 - 0.010ms
+T3954 000:020.163 JLINK_ExecCommand("ProjectFile = "D:\02_Mega\06_Projects\10_BLE_Beacons\03_Software\ble-beacons-st17h66_fw\ST17H66_SDK_3.0.6_201113\example\ble_peripheral\IBEACON\JLinkSettings.ini"", ...). 
+T3954 000:031.352   Ref file found at: C:\Keil_v5\ARM\Segger\JLinkDevices.ref
+T3954 000:031.464   XML referenced by ref file: C:\Program Files (x86)\SEGGER\JLink\JLinkDevices.xml
+T3954 000:032.613   C:\Program Files (x86)\SEGGER\JLink\JLinkDevices.xml evaluated successfully.
+T3954 000:067.714 - 47.565ms returns 0x00
+T3954 000:070.815 JLINK_ExecCommand("Device = ARMCM0", ...). 
+T3954 000:073.287   Device "CORTEX-M0" selected.
+T3954 000:074.447 - 3.600ms returns 0x00
+T3954 000:074.476 JLINK_GetHardwareVersion()
+T3954 000:074.483 - 0.010ms returns 96000
+T3954 000:074.492 JLINK_GetDLLVersion()
+T3954 000:074.503 - 0.013ms returns 69400
+T3954 000:074.511 JLINK_GetOEMString(...)
+T3954 000:074.530 JLINK_GetFirmwareString(...)
+T3954 000:074.538 - 0.011ms
+T3954 000:082.429 JLINK_GetDLLVersion()
+T3954 000:082.451 - 0.025ms returns 69400
+T3954 000:082.460 JLINK_GetCompileDateTime()
+T3954 000:082.467 - 0.009ms
+T3954 000:084.024 JLINK_GetFirmwareString(...)
+T3954 000:084.038 - 0.017ms
+T3954 000:085.520 JLINK_GetHardwareVersion()
+T3954 000:085.532 - 0.015ms returns 96000
+T3954 000:086.929 JLINK_GetSN()
+T3954 000:086.940 - 0.014ms returns 69612235
+T3954 000:088.333 JLINK_GetOEMString(...)
+T3954 000:091.229 JLINK_TIF_Select(JLINKARM_TIF_JTAG)
+T3954 000:093.108 - 1.894ms returns 0x00
+T3954 000:093.132 JLINK_HasError()
+T3954 000:093.159 JLINK_SetSpeed(5000)
+T3954 000:093.301 - 0.149ms
+T3954 000:093.323 JLINK_GetIdData(pIdData)
+T3954 000:097.528   Could not measure total IR len. TDO is constant high.
+T3954 000:253.444   Could not measure total IR len. TDO is constant high.
+T3954 000:254.042 - 160.730ms
+T3954 009:225.249 JLINK_Close()
+T3954 009:235.988 - 10.778ms
+T3954 009:236.034   
+T3954 009:236.045   Closed
