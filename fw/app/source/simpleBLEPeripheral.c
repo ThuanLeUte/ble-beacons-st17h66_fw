@@ -394,13 +394,13 @@ uint16 SimpleBLEPeripheral_ProcessEvent( uint8 task_id, uint16 events )
 
     if ( events & SYS_EVENT_MSG )
     {
-        uint8 *pMsg;
-		if ( (pMsg = osal_msg_receive( simpleBLEPeripheral_TaskID )) != NULL )
-		{
-			simpleBLEPeripheral_ProcessOSALMsg( (osal_event_hdr_t *)pMsg );
-			// Release the OSAL message
-			VOID osal_msg_deallocate( pMsg );
-		}
+        // uint8 *pMsg;
+		// if ( (pMsg = osal_msg_receive( simpleBLEPeripheral_TaskID )) != NULL )
+		// {
+		// 	simpleBLEPeripheral_ProcessOSALMsg( (osal_event_hdr_t *)pMsg );
+		// 	// Release the OSAL message
+		// 	VOID osal_msg_deallocate( pMsg );
+		// }
 		// return unprocessed events
 		return (events ^ SYS_EVENT_MSG);
     }
@@ -417,35 +417,35 @@ uint16 SimpleBLEPeripheral_ProcessEvent( uint8 task_id, uint16 events )
     // change to no conn adv
     if ( events & SBP_ADD_RL_EVT )
     {
-		uint8 initial_advertising_enable=TRUE;
-		initial_advertising_enable = TRUE;	 
-		GAPRole_SetParameter( GAPROLE_ADVERT_ENABLED, sizeof( uint8 ), &initial_advertising_enable );	
-		LOG("enable[%d] advtype=%x\n",initial_advertising_enable,g_current_advType);	
+		// uint8 initial_advertising_enable=TRUE;
+		// initial_advertising_enable = TRUE;	 
+		// GAPRole_SetParameter( GAPROLE_ADVERT_ENABLED, sizeof( uint8 ), &initial_advertising_enable );	
+		// LOG("enable[%d] advtype=%x\n",initial_advertising_enable,g_current_advType);	
 		return ( events ^ SBP_ADD_RL_EVT );
     }
 
     // enable adv
     if ( events & SBP_RESET_ADV_EVT )
     {
-		LOG("rst adv\n");
-		updateAdvData();
+		// LOG("rst adv\n");
+		// updateAdvData();
 		return ( events ^ SBP_RESET_ADV_EVT );
     }  
 
 	if ( events & SBP_CONNECTED_EVT )
 	{
-		uint8 advType;//g_current_advType;// LL_ADV_NONCONNECTABLE_UNDIRECTED_EVT;//LL_ADV_SCANNABLE_UNDIRECTED_EVT;//LL_ADV_CONNECTABLE_LDC_DIRECTED_EVT;//;    // it seems a  bug to set GAP_ADTYPE_ADV_NONCONN_IND = 0x03
-		osal_stop_timerEx(simpleBLEPeripheral_TaskID, SBP_RESET_ADV_EVT);
-		g_current_advType=LL_ADV_NONCONNECTABLE_UNDIRECTED_EVT;
-		advType=g_current_advType;
-		GAPRole_SetParameter( GAPROLE_ADV_EVENT_TYPE, sizeof( uint8 ), &advType );
+		// uint8 advType;//g_current_advType;// LL_ADV_NONCONNECTABLE_UNDIRECTED_EVT;//LL_ADV_SCANNABLE_UNDIRECTED_EVT;//LL_ADV_CONNECTABLE_LDC_DIRECTED_EVT;//;    // it seems a  bug to set GAP_ADTYPE_ADV_NONCONN_IND = 0x03
+		// osal_stop_timerEx(simpleBLEPeripheral_TaskID, SBP_RESET_ADV_EVT);
+		// g_current_advType=LL_ADV_NONCONNECTABLE_UNDIRECTED_EVT;
+		// advType=g_current_advType;
+		// GAPRole_SetParameter( GAPROLE_ADV_EVENT_TYPE, sizeof( uint8 ), &advType );
 		LOG("connected,change adv type=%x\n",g_current_advType);
 		return ( events ^ SBP_CONNECTED_EVT );
 	} 
 	// notifity
     if ( events & SBP_NOTIFY_EVT )
 	{
-		simpleProfile_Notify(gapConnHandle ,(uint8*)&Beacon_cmd_rsp_data,sizeof(Beacon_cmd_rsp_data));
+		// simpleProfile_Notify(gapConnHandle ,(uint8*)&Beacon_cmd_rsp_data,sizeof(Beacon_cmd_rsp_data));
 		return ( events ^ SBP_NOTIFY_EVT );
 	} 
     return 0;
