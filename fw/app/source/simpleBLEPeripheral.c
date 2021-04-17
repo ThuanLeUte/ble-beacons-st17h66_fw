@@ -54,16 +54,16 @@ THIS IS EMPTY HEADER
 #define DEFAULT_DISCOVERABLE_MODE					GAP_ADTYPE_FLAGS_GENERAL
 
 // Minimum connection interval (units of 1.25ms, 80=100ms) if automatic parameter update request is enabled
-#define DEFAULT_DESIRED_MIN_CONN_INTERVAL		24//32//80
+#define DEFAULT_DESIRED_MIN_CONN_INTERVAL		20//32//80
 
 // Maximum connection interval (units of 1.25ms, 800=1000ms) if automatic parameter update request is enabled
-#define DEFAULT_DESIRED_MAX_CONN_INTERVAL		800//48//800
+#define DEFAULT_DESIRED_MAX_CONN_INTERVAL		30//800
 
 // Slave latency to use if automatic parameter update request is enabled
 #define DEFAULT_DESIRED_SLAVE_LATENCY				0
 
 // Supervision timeout value (units of 10ms, 1000=10s) if automatic parameter update request is enabled
-#define DEFAULT_DESIRED_CONN_TIMEOUT				500//1000
+#define DEFAULT_DESIRED_CONN_TIMEOUT				1000
 
 // Whether to enable automatic parameter update request when a connection is formed
 #define DEFAULT_ENABLE_UPDATE_REQUEST				TRUE
@@ -324,7 +324,7 @@ void SimpleBLEPeripheral_Init( uint8 task_id )
 		};
 
 		uint8 advType =g_current_advType;// LL_ADV_NONCONNECTABLE_UNDIRECTED_EVT;//LL_ADV_SCANNABLE_UNDIRECTED_EVT;//LL_ADV_CONNECTABLE_LDC_DIRECTED_EVT;//;    // it seems a  bug to set GAP_ADTYPE_ADV_NONCONN_IND = 0x03
-		GAPRole_SetParameter( GAPROLE_ADV_EVENT_TYPE, sizeof( uint8 ), &advType );
+		// GAPRole_SetParameter( GAPROLE_ADV_EVENT_TYPE, sizeof( uint8 ), &advType );
 
 		GAPRole_SetParameter( GAPROLE_ADV_DIRECT_ADDR, sizeof(peerPublicAddr), peerPublicAddr);
 		// set adv channel map
@@ -350,7 +350,7 @@ void SimpleBLEPeripheral_Init( uint8 task_id )
 
     // Set advertising interval
     {
-        uint16 advInt = 800;//2400;//1600;//1600;//800;//1600;   // actual time = advInt * 625us
+        uint16 advInt = 3200;//2400;//1600;//1600;//800;//1600;   // actual time = advInt * 625us
         advInt=adv_intvl;
         GAP_SetParamValue( TGAP_LIM_DISC_ADV_INT_MIN, advInt );
         GAP_SetParamValue( TGAP_LIM_DISC_ADV_INT_MAX, advInt );
@@ -367,10 +367,10 @@ void SimpleBLEPeripheral_Init( uint8 task_id )
     // Setup a delayed profile startup
     osal_set_event( simpleBLEPeripheral_TaskID, SBP_START_DEVICE_EVT );
     // for receive HCI complete message
-    GAP_RegisterForHCIMsgs(simpleBLEPeripheral_TaskID);
+    // GAP_RegisterForHCIMsgs(simpleBLEPeripheral_TaskID);
 
-    LL_PLUS_PerStats_Init(&g_perStatsByChanTest);
-    osal_start_timerEx(simpleBLEPeripheral_TaskID, SBP_RESET_ADV_EVT, CHANGE_ADV_TYPE_TIME);  
+    // LL_PLUS_PerStats_Init(&g_perStatsByChanTest);
+    // osal_start_timerEx(simpleBLEPeripheral_TaskID, SBP_RESET_ADV_EVT, CHANGE_ADV_TYPE_TIME);  
 		
     LOG("======================SimpleBLEPeripheral_Init Done====================\n");
 }

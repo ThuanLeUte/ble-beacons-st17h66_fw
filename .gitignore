@@ -41,6 +41,10 @@
 *.su
 *.idb
 *.pdb
+*.lst
+*.hexf
+*.Admin
+*.asm
 
 # Kernel Module Compile Results
 *.mod*
