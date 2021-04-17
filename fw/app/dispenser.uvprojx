@@ -529,24 +529,24 @@
           <GroupName>BeaconApp</GroupName>
           <Files>
             <File>
-              <FileName>OSAL_SimpleBLEPeripheral.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\source\OSAL_SimpleBLEPeripheral.c</FilePath>
-            </File>
-            <File>
               <FileName>sbpProfile_ota.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\source\sbpProfile_ota.c</FilePath>
             </File>
             <File>
-              <FileName>simpleBLEPeripheral.c</FileName>
+              <FileName>ble_dispenser.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\source\simpleBLEPeripheral.c</FilePath>
+              <FilePath>.\source\ble_dispenser.c</FilePath>
             </File>
             <File>
-              <FileName>SimpleBLEPeripheral_Main.c</FileName>
+              <FileName>dispenser.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\source\SimpleBLEPeripheral_Main.c</FilePath>
+              <FilePath>.\source\dispenser.c</FilePath>
+            </File>
+            <File>
+              <FileName>osal_ble_dispenser.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\source\osal_ble_dispenser.c</FilePath>
             </File>
           </Files>
         </Group>

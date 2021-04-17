@@ -24,8 +24,7 @@ THIS IS EMPTY HEADER
 #include "gatt_uuid.h"
 #include "gattservapp.h"
 #include "gapbondmgr.h"
-#include "simpleBlePeripheral.h"
-//#include "log.h"
+#include "ble_dispenser.h"
 #include "sbpProfile_ota.h"
 
 /*********************************************************************

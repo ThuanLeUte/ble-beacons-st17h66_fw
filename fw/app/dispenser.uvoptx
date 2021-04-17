@@ -510,8 +510,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\source\OSAL_SimpleBLEPeripheral.c</PathWithFileName>
-      <FilenameWithoutPath>OSAL_SimpleBLEPeripheral.c</FilenameWithoutPath>
+      <PathWithFileName>.\source\sbpProfile_ota.c</PathWithFileName>
+      <FilenameWithoutPath>sbpProfile_ota.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -522,8 +522,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\source\sbpProfile_ota.c</PathWithFileName>
-      <FilenameWithoutPath>sbpProfile_ota.c</FilenameWithoutPath>
+      <PathWithFileName>.\source\ble_dispenser.c</PathWithFileName>
+      <FilenameWithoutPath>ble_dispenser.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -534,8 +534,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\source\simpleBLEPeripheral.c</PathWithFileName>
-      <FilenameWithoutPath>simpleBLEPeripheral.c</FilenameWithoutPath>
+      <PathWithFileName>.\source\dispenser.c</PathWithFileName>
+      <FilenameWithoutPath>dispenser.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -546,8 +546,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\source\SimpleBLEPeripheral_Main.c</PathWithFileName>
-      <FilenameWithoutPath>SimpleBLEPeripheral_Main.c</FilenameWithoutPath>
+      <PathWithFileName>.\source\osal_ble_dispenser.c</PathWithFileName>
+      <FilenameWithoutPath>osal_ble_dispenser.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

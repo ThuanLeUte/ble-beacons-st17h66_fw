@@ -22,8 +22,6 @@ THIS IS EMPTY HEADER
 #include "OSAL_Tasks.h"
 #include "OSAL_PwrMgr.h"
 #include "osal_snv.h"
-//#include "OnBoard.h"
-
 
 /**************************************************************************************************
  * FUNCTIONS
