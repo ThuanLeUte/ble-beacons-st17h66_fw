@@ -33,8 +33,8 @@
     Program header entries: 3
     Section header entries: 19
 
-    Program header offset: 575576 (0x0008c858)
-    Section header offset: 575672 (0x0008c8b8)
+    Program header offset: 575572 (0x0008c854)
+    Section header offset: 575668 (0x0008c8b4)
 
     Section header string table index: 18
 
@@ -22852,7 +22852,7 @@
     Flags       : None (0x00000000)
     Addr        : 0x00000000
     File Offset : 478012 (0x74b3c)
-    Size        : 97384 bytes (0x17c68)
+    Size        : 97380 bytes (0x17c64)
     Link        : SHN_UNDEF
     Info        : 0
     Alignment   : 1
@@ -23272,7 +23272,7 @@
 
     Input Comments:
     
-    p28f4-3
+    p3f90-3
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
     armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
@@ -23290,7 +23290,7 @@
 
     Input Comments:
     
-    p2748-3
+    pe64-3
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
     armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
@@ -23298,9 +23298,6 @@
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: ArmCC [4d3637]
     ArmCC --c99 --split_sections --debug -c -o.\objects\ble_dispenser.o --depend=.\objects\ble_dispenser.d --cpu=Cortex-M0 --apcs=interwork -O3 --diag_suppress=9931 -I..\components\inc -I..\components\ble\controller -I..\components\osal\include -I..\components\common -I..\components\ble\include -I..\components\ble\hci -I..\components\ble\host -I..\components\Profiles\ota_app -I..\components\Profiles\DevInfo -I..\components\Profiles\SimpleProfile -I..\components\Profiles\Roles -I.\source -I..\components\libraries\crc16 -I..\components\driver\clock -I..\components\arch\cm0 -I..\components\driver\pwrmgr -I..\components\driver\uart -I..\components\driver\gpio -I..\components\driver\timer -I..\misc -I..\components\driver\log -I..\components\libraries\cliface -I..\components\driver\key -I..\components\driver\pwm -I..\components\driver\flash -I..\components\libraries\fs -I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\Device\ARM\ARMCM0\Include -D__MICROLIB -DADV_NCONN_CFG=0x01 -DADV_CONN_CFG=0x02 -DSCAN_CFG=0x04 -DINIT_CFG=0x08 -DBROADCASTER_CFG=0x01 -DOBSERVER_CFG=0x02 -DPERIPHERAL_CFG=0x04 -DCENTRAL_CFG=0x08 -D__UVISION_VERSION=530 -D_RTE_ -DARMCM0 -D_RTE_ -DCFG_CP -DOSAL_CBTIMER_NUM_TASKS=1 -DHOST_CONFIG=4 -DHCI_TL_NONE=1 -DENABLE_LOG_ROM_=0 -D_BUILD_FOR_DTM_=0 -DDEBUG_INFO=1 -DDBG_ROM_MAIN=0 -DAPP_CFG=0 -DOSALMEM_METRICS=0 -DPHY_MCU_TYPE=MCU_BUMBEE_M0 -DUSE_FS=1 -DCFG_SLEEP_MODE=PWR_MODE_SLEEP -DDEBUG_INFO=1 --omf_browse=.\objects\ble_dispenser.crf source\ble_dispenser.c
-    
-    
-    
     
     
     dispenser.o
@@ -23315,7 +23312,7 @@
 
     Input Comments:
     
-    p2414-3
+    pe1c-3
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
     armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
@@ -23323,6 +23320,7 @@
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: ArmCC [4d3637]
     ArmCC --c99 --split_sections --debug -c -o.\objects\osal_ble_dispenser.o --depend=.\objects\osal_ble_dispenser.d --cpu=Cortex-M0 --apcs=interwork -O3 --diag_suppress=9931 -I..\components\inc -I..\components\ble\controller -I..\components\osal\include -I..\components\common -I..\components\ble\include -I..\components\ble\hci -I..\components\ble\host -I..\components\Profiles\ota_app -I..\components\Profiles\DevInfo -I..\components\Profiles\SimpleProfile -I..\components\Profiles\Roles -I.\source -I..\components\libraries\crc16 -I..\components\driver\clock -I..\components\arch\cm0 -I..\components\driver\pwrmgr -I..\components\driver\uart -I..\components\driver\gpio -I..\components\driver\timer -I..\misc -I..\components\driver\log -I..\components\libraries\cliface -I..\components\driver\key -I..\components\driver\pwm -I..\components\driver\flash -I..\components\libraries\fs -I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\Device\ARM\ARMCM0\Include -D__MICROLIB -DADV_NCONN_CFG=0x01 -DADV_CONN_CFG=0x02 -DSCAN_CFG=0x04 -DINIT_CFG=0x08 -DBROADCASTER_CFG=0x01 -DOBSERVER_CFG=0x02 -DPERIPHERAL_CFG=0x04 -DCENTRAL_CFG=0x08 -D__UVISION_VERSION=530 -D_RTE_ -DARMCM0 -D_RTE_ -DCFG_CP -DOSAL_CBTIMER_NUM_TASKS=1 -DHOST_CONFIG=4 -DHCI_TL_NONE=1 -DENABLE_LOG_ROM_=0 -D_BUILD_FOR_DTM_=0 -DDEBUG_INFO=1 -DDBG_ROM_MAIN=0 -DAPP_CFG=0 -DOSALMEM_METRICS=0 -DPHY_MCU_TYPE=MCU_BUMBEE_M0 -DUSE_FS=1 -DCFG_SLEEP_MODE=PWR_MODE_SLEEP -DDEBUG_INFO=1 --omf_browse=.\objects\osal_ble_dispenser.crf source\osal_ble_dispenser.c
+    
     
     
     
@@ -23912,7 +23910,7 @@
     Type        : SHT_STRTAB (0x00000003)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 575396 (0x8c7a4)
+    File Offset : 575392 (0x8c7a0)
     Size        : 180 bytes (0xb4)
     Link        : SHN_UNDEF
     Info        : 0
