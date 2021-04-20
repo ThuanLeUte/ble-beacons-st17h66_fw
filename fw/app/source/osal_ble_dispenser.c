@@ -45,6 +45,8 @@
 /* Application */
 #include "ble_dispenser.h"
 
+#include "ble_timer.h"
+
 /*********************************************************************
  * GLOBAL VARIABLES
  */
@@ -65,6 +67,7 @@ const pTaskEventHandlerFn tasksArr[] =
         GAPBondMgr_ProcessEvent,     // task , add 2017-11-15
         GATTServApp_ProcessEvent,    // task 7
         ble_dispenser_process_event, // task 8
+        ble_timer_process_event      // task 9
 };
 
 const uint8 tasksCnt = sizeof(tasksArr) / sizeof(tasksArr[0]);
@@ -122,6 +125,8 @@ void osalInitTasks(void)
 
   /* Application */
   ble_dispenser_init(taskID++);
+
+  ble_timer_1s_init(taskID);
 }
 #endif
 /*********************************************************************

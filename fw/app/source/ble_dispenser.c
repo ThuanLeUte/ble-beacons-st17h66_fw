@@ -34,6 +34,8 @@
 #include "fs.h"
 #include "osal_snv.h"
 
+#include "ble_humidity_service.h"
+
 /* Private defines ---------------------------------------------------- */
 #define DEVINFO_SYSTEM_ID_LEN   8
 #define DEVINFO_SYSTEM_ID       0
@@ -132,6 +134,8 @@ static void m_ble_dispenser_state_notification_cb(gaprole_States_t new_state);
 static void m_ble_change_cb(uint8 param_id);
 static void m_ble_update_adv(void);
 
+static void m_ble_notify_humi(void);
+
 // GAP Role Callbacks
 static gapRolesCBs_t m_ble_dispenser_cbs =
 {
@@ -144,7 +148,17 @@ static simpleProfileCBs_t simpleBLEPeripheral_SimpleProfileCBs =
 {
   m_ble_change_cb    // Charactersitic value change callback
 };
-
+static void on_ble_humi_service_evt(bhs_evt_t *pev)
+{ 
+  switch (pev->evt_id)
+  {
+  case BHS_EVT_NOTIFY_SENT:
+    break;
+  
+  default:
+    break;
+  }
+}
 /* Function definitions ----------------------------------------------- */
 /**
  * @brief   Initialization function for the Simple BLE Peripheral App Task.
@@ -257,6 +271,8 @@ void ble_dispenser_init(uint8 task_id)
   GATTServApp_AddService(GATT_ALL_SERVICES);   // GATT attributes
   DevInfo_AddService();                        // Device Information Service
   SimpleProfile_AddService(GATT_ALL_SERVICES); // Simple GATT Profile
+  // bhs_add_service(on_ble_humi_service_evt); // Humidity Service
+
 
   // Setup a delayed profile startup
   osal_set_event(m_dispenser_task_id, SBP_START_DEVICE_EVT);
@@ -455,6 +471,20 @@ static void m_ble_update_adv(void)
 
   // Reset advertisement event, note that GAP/LL will process close adv event in advance
   osal_start_timerEx(m_dispenser_task_id, SBP_ADD_RL_EVT, 500);
+}
+
+void periodic_1s_callback(void)
+{
+  // m_ble_notify_humi();
+  LOG("Send notify");
+}
+
+static void m_ble_notify_humi(void)
+{
+  attHandleValueNoti_t humi_meas;
+  humi_meas.len = 1;
+  humi_meas.value[0] = 100;
+  bhs_notify_humidity(m_gap_conn_handle, &humi_meas);
 }
 
 /* Publish Function definitions --------------------------------------- */
