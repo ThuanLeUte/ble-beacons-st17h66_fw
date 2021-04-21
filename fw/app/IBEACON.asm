@@ -33,8 +33,8 @@
     Program header entries: 3
     Section header entries: 19
 
-    Program header offset: 574172 (0x0008c2dc)
-    Section header offset: 574268 (0x0008c33c)
+    Program header offset: 573764 (0x0008c144)
+    Section header offset: 573860 (0x0008c1a4)
 
     Section header string table index: 18
 
@@ -6267,7 +6267,7 @@
         0x1fff4984:    00000002    ....    DCD    2
         0x1fff4988:    1fff497d    }I..    DCD    536824189
     .constdata
-    simpleProfileCBs
+    bs_callbacks
         0x1fff498c:    1fff25f9    .%..    DCD    536815097
         0x1fff4990:    1fff2621    !&..    DCD    536815137
         0x1fff4994:    00000000    ....    DCD    0
@@ -22287,7 +22287,7 @@
     Flags       : None (0x00000000)
     Addr        : 0x00000000
     File Offset : 60652 (0xecec)
-    Size        : 148960 bytes (0x245e0)
+    Size        : 148580 bytes (0x24464)
     Link        : SHN_UNDEF
     Info        : 0
     Alignment   : 1
@@ -22302,8 +22302,8 @@
     Type        : SHT_PROGBITS (0x00000001)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 209612 (0x332cc)
-    Size        : 44796 bytes (0xaefc)
+    File Offset : 209232 (0x33150)
+    Size        : 44772 bytes (0xaee4)
     Link        : SHN_UNDEF
     Info        : 0
     Alignment   : 1
@@ -22318,7 +22318,7 @@
     Type        : SHT_PROGBITS (0x00000001)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 254408 (0x3e1c8)
+    File Offset : 254004 (0x3e034)
     Size        : 24164 bytes (0x5e64)
     Link        : SHN_UNDEF
     Info        : 0
@@ -22334,7 +22334,7 @@
     Type        : SHT_PROGBITS (0x00000001)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 278572 (0x4402c)
+    File Offset : 278168 (0x43e98)
     Size        : 79884 bytes (0x1380c)
     Link        : SHN_UNDEF
     Info        : 0
@@ -22350,7 +22350,7 @@
     Type        : SHT_PROGBITS (0x00000001)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 358456 (0x57838)
+    File Offset : 358052 (0x576a4)
     Size        : 6761 bytes (0x1a69)
     Link        : SHN_UNDEF
     Info        : 0
@@ -22366,7 +22366,7 @@
     Type        : SHT_SYMTAB (0x00000002)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 365220 (0x592a4)
+    File Offset : 364816 (0x59110)
     Size        : 56288 bytes (0xdbe0)
     Link        : Section 15 (.strtab)
     Info        : Last local symbol no = 1946
@@ -22382,8 +22382,8 @@
     Type        : SHT_STRTAB (0x00000003)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 421508 (0x66e84)
-    Size        : 51300 bytes (0xc864)
+    File Offset : 421104 (0x66cf0)
+    Size        : 51296 bytes (0xc860)
     Link        : SHN_UNDEF
     Info        : 0
     Alignment   : 1
@@ -22398,7 +22398,7 @@
     Type        : SHT_NOTE (0x00000007)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 472808 (0x736e8)
+    File Offset : 472400 (0x73550)
     Size        : 40 bytes (0x28)
     Link        : SHN_UNDEF
     Info        : 0
@@ -22423,7 +22423,7 @@
     Type        : SHT_PROGBITS (0x00000001)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 472848 (0x73710)
+    File Offset : 472440 (0x73578)
     Size        : 101144 bytes (0x18b18)
     Link        : SHN_UNDEF
     Info        : 0
@@ -22844,7 +22844,7 @@
 
     Input Comments:
     
-    p3f90-3
+    p4a2c-3
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
     armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
@@ -22862,7 +22862,7 @@
 
     Input Comments:
     
-    p4774-3
+    p3690-3
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
     armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
@@ -22887,7 +22887,7 @@
 
     Input Comments:
     
-    p141c-3
+    p4024-3
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
     armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
@@ -22910,7 +22910,7 @@
 
     Input Comments:
     
-    p2210-3
+    p5870-3
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
     armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
@@ -23508,7 +23508,7 @@
     Type        : SHT_STRTAB (0x00000003)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 573992 (0x8c228)
+    File Offset : 573584 (0x8c090)
     Size        : 180 bytes (0xb4)
     Link        : SHN_UNDEF
     Info        : 0
@@ -23540,6 +23540,12 @@ address     size       variable name                            type
 0x1fff4dd0  0x30       bs_atrr_tbl                              array[3] of gattAttribute_t
 
 address     size       variable name                            type
+0x1fff498c  0xc        bs_callbacks                             const gattServiceCBs_t
+0x1fff498c  0x4        bs_callbacks.pfnReadAttrCB               pfnGATTReadAttrCB_t
+0x1fff4990  0x4        bs_callbacks.pfnWriteAttrCB              pfnGATTWriteAttrCB_t
+0x1fff4994  0x4        bs_callbacks.pfnAuthorizeAttrCB          pfnGATTAuthorizeAttrCB_t
+
+address     size       variable name                            type
 0x1fff4984  0x8        bs_service                               const gattAttrType_t
 0x1fff4984  0x1      * bs_service.len                           uint8
 0x1fff4988  0x4        bs_service.uuid                          pointer to const uint8
@@ -23549,12 +23555,6 @@ address     size       variable name                            type
 0x1fff4e00  0x1        m_bs.chars                               anonymous
 0x1fff4e00  0x1        m_bs.chars.value                         anonymous
 0x1fff4e00  0x1        m_bs.chars.value.char_1                  array[1] of uint8_t
-
-address     size       variable name                            type
-0x1fff498c  0xc        simpleProfileCBs                         const gattServiceCBs_t
-0x1fff498c  0x4        simpleProfileCBs.pfnReadAttrCB           pfnGATTReadAttrCB_t
-0x1fff4990  0x4        simpleProfileCBs.pfnWriteAttrCB          pfnGATTWriteAttrCB_t
-0x1fff4994  0x4        simpleProfileCBs.pfnAuthorizeAttrCB      pfnGATTAuthorizeAttrCB_t
 
 address     size       variable name                            type
 0x1fff494c  0x30       tasksArr                                 array[12] of const pTaskEventHandlerFn

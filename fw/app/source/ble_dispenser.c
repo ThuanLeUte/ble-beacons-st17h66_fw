@@ -131,8 +131,6 @@ static uint8 m_att_device_name[GAP_DEVICE_NAME_LEN] = "DISPEN  ";
 /* Private function prototypes ---------------------------------------- */
 static void m_ble_process_osal_msg(osal_event_hdr_t *m_msg);
 static void m_ble_dispenser_state_notification_cb(gaprole_States_t new_state);
-static void m_ble_change_cb(uint8 param_id);
-static void m_ble_update_adv(void);
 
 static void m_ble_notify_humi(void);
 
@@ -141,12 +139,6 @@ static gapRolesCBs_t m_ble_dispenser_cbs =
 {
   m_ble_dispenser_state_notification_cb, // Profile State Change Callbacks
   NULL
-};
-
-// Simple GATT Profile Callbacks
-static simpleProfileCBs_t simpleBLEPeripheral_SimpleProfileCBs =
-{
-  m_ble_change_cb    // Charactersitic value change callback
 };
 
 /* Function definitions ----------------------------------------------- */
@@ -165,8 +157,6 @@ static simpleProfileCBs_t simpleBLEPeripheral_SimpleProfileCBs =
  */
 void ble_dispenser_init(uint8 task_id)
 {
-  uint16 fs_read_len  = 0;
-  int    snv_ret      = 0;
   uint16 adv_intvl    = 0;
   m_dispenser_task_id = task_id;
   uint8 fs_flag;
@@ -371,7 +361,6 @@ static void m_ble_dispenser_state_notification_cb(gaprole_States_t new_state)
   case GAPROLE_STARTED:
   {
     uint8 own_address[B_ADDR_LEN];
-    uint8 str_addr[14]               = {0};
     uint8 initial_advertising_enable = TRUE;
 
     GAPRole_GetParameter(GAPROLE_BD_ADDR, own_address);
@@ -410,55 +399,6 @@ static void m_ble_dispenser_state_notification_cb(gaprole_States_t new_state)
   LOG("[GAP ROLE %d]\n", new_state);
 
   VOID m_gap_profile_state;
-}
-
-/**
- * @brief       Callback from SimpleBLEProfile indicating a value change
- *
- * @param[in]   param_id  Parameter ID of the value that was changed.
- *
- * @attention   None
- *
- * @return      None
- */
-static void m_ble_change_cb(uint8 param_id)
-{
-  switch (param_id)
-  {
-  default:
-    break;
-  }
-}
-
-/**
- * @brief       Update adv data and change the adv type
- *
- * @param[in]   None
- *
- * @attention   None
- *
- * @return      None
- */
-static void m_ble_update_adv(void)
-{
-  uint8 new_uuid[IBEACON_UUID_LEN];
-  uint16 major;
-  uint16 minor;
-  uint8 power;
-  uint8 adv_type;
-  uint8 initial_advertising_enable = FALSE;
-
-  GAPRole_SetParameter(GAPROLE_ADVERT_ENABLED, sizeof(uint8), &initial_advertising_enable);
-  LOG("Disable advertising\n");
-
-  // Change advertising type
-  g_current_adv_type = LL_ADV_NONCONNECTABLE_UNDIRECTED_EVT;
-  adv_type           = g_current_adv_type;
-
-  GAPRole_SetParameter(GAPROLE_ADV_EVENT_TYPE, sizeof(uint8), &adv_type);
-
-  // Reset advertisement event, note that GAP/LL will process close adv event in advance
-  osal_start_timerEx(m_dispenser_task_id, SBP_ADD_RL_EVT, 500);
 }
 
 void periodic_1s_callback(void)
@@ -510,7 +450,6 @@ void SimpleBLEPeripheral_SetMinor(uint8 *data, uint8 len)
 
 void SimpleBLEPeripheral_SetRSSI(uint8 data)
 {
-  uint8 temp;
   Ibeacon_store_data.RSSI = data;
   m_advert_data[BEACON_ADV_RSSI_INDEX] = data;
   GAPRole_SetParameter(GAPROLE_ADVERT_DATA, sizeof(m_advert_data), m_advert_data);
