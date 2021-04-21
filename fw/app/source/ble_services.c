@@ -12,7 +12,7 @@
  */
 
 /* Includes ----------------------------------------------------------- */
-#include "ble_humidity_service.h"
+#include "ble_services.h"
 #include "log.h"
 
 #include "bcomdef.h"

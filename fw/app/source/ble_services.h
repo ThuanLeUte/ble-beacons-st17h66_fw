@@ -1,5 +1,5 @@
 /**
- * @file       ble_humidity_service.h
+ * @file       ble_services.h
  * @copyright  Copyright (C) 2020 ThuanLe. All rights reserved.
  * @license    This project is released under the ThuanLe License.
  * @version    2.0.0

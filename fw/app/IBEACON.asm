@@ -33,8 +33,8 @@
     Program header entries: 3
     Section header entries: 19
 
-    Program header offset: 575012 (0x0008c624)
-    Section header offset: 575108 (0x0008c684)
+    Program header offset: 574820 (0x0008c564)
+    Section header offset: 574916 (0x0008c5c4)
 
     Section header string table index: 18
 
@@ -22284,7 +22284,7 @@
     Flags       : None (0x00000000)
     Addr        : 0x00000000
     File Offset : 60636 (0xecdc)
-    Size        : 149304 bytes (0x24738)
+    Size        : 149248 bytes (0x24700)
     Link        : SHN_UNDEF
     Info        : 0
     Alignment   : 1
@@ -22299,8 +22299,8 @@
     Type        : SHT_PROGBITS (0x00000001)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 209940 (0x33414)
-    Size        : 44832 bytes (0xaf20)
+    File Offset : 209884 (0x333dc)
+    Size        : 44768 bytes (0xaee0)
     Link        : SHN_UNDEF
     Info        : 0
     Alignment   : 1
@@ -22315,7 +22315,7 @@
     Type        : SHT_PROGBITS (0x00000001)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 254772 (0x3e334)
+    File Offset : 254652 (0x3e2bc)
     Size        : 24148 bytes (0x5e54)
     Link        : SHN_UNDEF
     Info        : 0
@@ -22331,7 +22331,7 @@
     Type        : SHT_PROGBITS (0x00000001)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 278920 (0x44188)
+    File Offset : 278800 (0x44110)
     Size        : 80000 bytes (0x13880)
     Link        : SHN_UNDEF
     Info        : 0
@@ -22347,7 +22347,7 @@
     Type        : SHT_PROGBITS (0x00000001)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 358920 (0x57a08)
+    File Offset : 358800 (0x57990)
     Size        : 6694 bytes (0x1a26)
     Link        : SHN_UNDEF
     Info        : 0
@@ -22363,7 +22363,7 @@
     Type        : SHT_SYMTAB (0x00000002)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 365616 (0x59430)
+    File Offset : 365496 (0x593b8)
     Size        : 56432 bytes (0xdc70)
     Link        : Section 15 (.strtab)
     Info        : Last local symbol no = 1956
@@ -22379,8 +22379,8 @@
     Type        : SHT_STRTAB (0x00000003)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 422048 (0x670a0)
-    Size        : 51544 bytes (0xc958)
+    File Offset : 421928 (0x67028)
+    Size        : 51528 bytes (0xc948)
     Link        : SHN_UNDEF
     Info        : 0
     Alignment   : 1
@@ -22395,7 +22395,7 @@
     Type        : SHT_NOTE (0x00000007)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 473592 (0x739f8)
+    File Offset : 473456 (0x73970)
     Size        : 40 bytes (0x28)
     Link        : SHN_UNDEF
     Info        : 0
@@ -22420,8 +22420,8 @@
     Type        : SHT_PROGBITS (0x00000001)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 473632 (0x73a20)
-    Size        : 101200 bytes (0x18b50)
+    File Offset : 473496 (0x73998)
+    Size        : 101144 bytes (0x18b18)
     Link        : SHN_UNDEF
     Info        : 0
     Alignment   : 1
@@ -22859,7 +22859,7 @@
 
     Input Comments:
     
-    p1248-3
+    p4d5c-3
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
     armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
@@ -22884,7 +22884,7 @@
 
     Input Comments:
     
-    p1868-3
+    p141c-3
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
     armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
@@ -22895,28 +22895,28 @@
     
     
     
-    ble_humidity_service.o
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
-    armlink --partial --no_add_relocs_to_undefined --no_generate_mapping_symbols --diag_suppress=9931,9931,6642 --cpu=Cortex-M0 --fpu=SoftVFP --output=.\objects\ble_humidity_service.o --vfemode=force
-
-    Input Comments:
-    
-    p484c-3
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
-    armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
-    ble_humidity_service.o
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: ArmCC [4d3637]
-    ArmCC --c99 --split_sections --debug -c -o.\objects\ble_humidity_service.o --depend=.\objects\ble_humidity_service.d --cpu=Cortex-M0 --apcs=interwork -O3 --diag_suppress=9931 -I..\components\inc -I..\components\ble\controller -I..\components\osal\include -I..\components\common -I..\components\ble\include -I..\components\ble\hci -I..\components\ble\host -I..\components\Profiles\ota_app -I..\components\Profiles\DevInfo -I..\components\Profiles\SimpleProfile -I..\components\Profiles\Roles -I.\source -I..\components\libraries\crc16 -I..\components\driver\clock -I..\components\arch\cm0 -I..\components\driver\pwrmgr -I..\components\driver\uart -I..\components\driver\gpio -I..\components\driver\timer -I..\misc -I..\components\driver\log -I..\components\libraries\cliface -I..\components\driver\key -I..\components\driver\pwm -I..\components\driver\flash -I..\components\libraries\fs -I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\Device\ARM\ARMCM0\Include -D__MICROLIB -DADV_NCONN_CFG=0x01 -DADV_CONN_CFG=0x02 -DSCAN_CFG=0x04 -DINIT_CFG=0x08 -DBROADCASTER_CFG=0x01 -DOBSERVER_CFG=0x02 -DPERIPHERAL_CFG=0x04 -DCENTRAL_CFG=0x08 -D__UVISION_VERSION=530 -D_RTE_ -DARMCM0 -D_RTE_ -DCFG_CP -DOSAL_CBTIMER_NUM_TASKS=1 -DHOST_CONFIG=4 -DHCI_TL_NONE=1 -DENABLE_LOG_ROM_=0 -D_BUILD_FOR_DTM_=0 -DDEBUG_INFO=1 -DDBG_ROM_MAIN=0 -DAPP_CFG=0 -DOSALMEM_METRICS=0 -DPHY_MCU_TYPE=MCU_BUMBEE_M0 -DUSE_FS=1 -DCFG_SLEEP_MODE=PWR_MODE_SLEEP -DDEBUG_INFO=1 --omf_browse=.\objects\ble_humidity_service.crf source\ble_humidity_service.c
-    
-    
-    
     ble_timer.o
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: ArmCC [4d3637]
     ArmCC --c99 --split_sections --debug -c -o.\objects\ble_timer.o --depend=.\objects\ble_timer.d --cpu=Cortex-M0 --apcs=interwork -O3 --diag_suppress=9931 -I..\components\inc -I..\components\ble\controller -I..\components\osal\include -I..\components\common -I..\components\ble\include -I..\components\ble\hci -I..\components\ble\host -I..\components\Profiles\ota_app -I..\components\Profiles\DevInfo -I..\components\Profiles\SimpleProfile -I..\components\Profiles\Roles -I.\source -I..\components\libraries\crc16 -I..\components\driver\clock -I..\components\arch\cm0 -I..\components\driver\pwrmgr -I..\components\driver\uart -I..\components\driver\gpio -I..\components\driver\timer -I..\misc -I..\components\driver\log -I..\components\libraries\cliface -I..\components\driver\key -I..\components\driver\pwm -I..\components\driver\flash -I..\components\libraries\fs -I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\Device\ARM\ARMCM0\Include -D__MICROLIB -DADV_NCONN_CFG=0x01 -DADV_CONN_CFG=0x02 -DSCAN_CFG=0x04 -DINIT_CFG=0x08 -DBROADCASTER_CFG=0x01 -DOBSERVER_CFG=0x02 -DPERIPHERAL_CFG=0x04 -DCENTRAL_CFG=0x08 -D__UVISION_VERSION=530 -D_RTE_ -DARMCM0 -D_RTE_ -DCFG_CP -DOSAL_CBTIMER_NUM_TASKS=1 -DHOST_CONFIG=4 -DHCI_TL_NONE=1 -DENABLE_LOG_ROM_=0 -D_BUILD_FOR_DTM_=0 -DDEBUG_INFO=1 -DDBG_ROM_MAIN=0 -DAPP_CFG=0 -DOSALMEM_METRICS=0 -DPHY_MCU_TYPE=MCU_BUMBEE_M0 -DUSE_FS=1 -DCFG_SLEEP_MODE=PWR_MODE_SLEEP -DDEBUG_INFO=1 --omf_browse=.\objects\ble_timer.crf source\ble_timer.c
+    
+    ble_services.o
+    
+    Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
+    armlink --partial --no_add_relocs_to_undefined --no_generate_mapping_symbols --diag_suppress=9931,9931,6642 --cpu=Cortex-M0 --fpu=SoftVFP --output=.\objects\ble_services.o --vfemode=force
+
+    Input Comments:
+    
+    p4a78-3
+    
+    Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
+    armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
+    ble_services.o
+    
+    Component: ARM Compiler 5.06 update 6 (build 750) Tool: ArmCC [4d3637]
+    ArmCC --c99 --split_sections --debug -c -o.\objects\ble_services.o --depend=.\objects\ble_services.d --cpu=Cortex-M0 --apcs=interwork -O3 --diag_suppress=9931 -I..\components\inc -I..\components\ble\controller -I..\components\osal\include -I..\components\common -I..\components\ble\include -I..\components\ble\hci -I..\components\ble\host -I..\components\Profiles\ota_app -I..\components\Profiles\DevInfo -I..\components\Profiles\SimpleProfile -I..\components\Profiles\Roles -I.\source -I..\components\libraries\crc16 -I..\components\driver\clock -I..\components\arch\cm0 -I..\components\driver\pwrmgr -I..\components\driver\uart -I..\components\driver\gpio -I..\components\driver\timer -I..\misc -I..\components\driver\log -I..\components\libraries\cliface -I..\components\driver\key -I..\components\driver\pwm -I..\components\driver\flash -I..\components\libraries\fs -I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\Device\ARM\ARMCM0\Include -D__MICROLIB -DADV_NCONN_CFG=0x01 -DADV_CONN_CFG=0x02 -DSCAN_CFG=0x04 -DINIT_CFG=0x08 -DBROADCASTER_CFG=0x01 -DOBSERVER_CFG=0x02 -DPERIPHERAL_CFG=0x04 -DCENTRAL_CFG=0x08 -D__UVISION_VERSION=530 -D_RTE_ -DARMCM0 -D_RTE_ -DCFG_CP -DOSAL_CBTIMER_NUM_TASKS=1 -DHOST_CONFIG=4 -DHCI_TL_NONE=1 -DENABLE_LOG_ROM_=0 -D_BUILD_FOR_DTM_=0 -DDEBUG_INFO=1 -DDBG_ROM_MAIN=0 -DAPP_CFG=0 -DOSALMEM_METRICS=0 -DPHY_MCU_TYPE=MCU_BUMBEE_M0 -DUSE_FS=1 -DCFG_SLEEP_MODE=PWR_MODE_SLEEP -DDEBUG_INFO=1 --omf_browse=.\objects\ble_services.crf source\ble_services.c
+    
+    
     
     startup_armcm0.o
     
@@ -22931,7 +22931,7 @@
 
     Input Comments:
     
-    p32b4-3
+    p40a4-3
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
     armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
@@ -23505,7 +23505,7 @@
     Type        : SHT_STRTAB (0x00000003)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 574832 (0x8c570)
+    File Offset : 574640 (0x8c4b0)
     Size        : 180 bytes (0xb4)
     Link        : SHN_UNDEF
     Info        : 0

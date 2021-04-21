@@ -34,7 +34,7 @@
 #include "fs.h"
 #include "osal_snv.h"
 
-#include "ble_humidity_service.h"
+#include "ble_services.h"
 
 /* Private defines ---------------------------------------------------- */
 #define DEVINFO_SYSTEM_ID_LEN   8

@@ -549,14 +549,14 @@
               <FilePath>.\source\osal_ble_dispenser.c</FilePath>
             </File>
             <File>
-              <FileName>ble_humidity_service.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\source\ble_humidity_service.c</FilePath>
-            </File>
-            <File>
               <FileName>ble_timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\source\ble_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>ble_services.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\source\ble_services.c</FilePath>
             </File>
           </Files>
         </Group>
