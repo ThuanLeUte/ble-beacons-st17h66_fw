@@ -5,105 +5,84 @@
  * @version    2.0.0
  * @date       2020-06-02
  * @author     Thuan Le
- *             
- * @brief      BHS (BLE Humidity service)
- *             
- * @note          
+ * @brief      BS (BLE Service)
+ * @note       None
  */
 
 /* Define to prevent recursive inclusion ------------------------------ */
-#ifndef __BLE_HUMIDITY_SERVICE_H
-#define __BLE_HUMIDITY_SERVICE_H
+#ifndef __BLE_SERVICES_H
+#define __BLE_SERVICES_H
 
 /* Includes ----------------------------------------------------------- */
 #include "att.h"
 
 /* Public defines ----------------------------------------------------- */
-#define BHS_UUID_SERV         (0x1234)
-#define BHS_UUID_CHAR_HUMI    (0x1235)
-
 /* Public enumerate/structure ----------------------------------------- */
 typedef enum 
 {
-  BHS_ID_SERVICE = 0x00,
-  BHS_ID_CHAR_HUMI,
-  BHS_ID_MAX
+  BS_ID_SERVICE = 0x00,
+  BS_ID_CHAR_1,
+  BS_ID_CHAR_2,
+  BS_ID_MAX
 }
-bhs_id_t;
-
-typedef enum 
-{
-  BHS_EVT_NOTIFY_SENT,
-  BHS_EVT_2
-}
-bhs_evt_id_t;
-
-typedef struct
-{
-  bhs_evt_id_t  evt_id;
-  bhs_id_t      param;
-  void         *data;
-}
-bhs_evt_t;
-
-typedef void (*bhs_cb_t)(bhs_evt_t* pev);
+bs_id_t;
 
 /* Public function prototypes ----------------------------------------- */
 /**
- * @brief      Initializes the Humidity service by registering
+ * @brief      Initializes the BLE service by registering
  *             GATT attributes with the GATT server.
  *
- * @param[in]  <cb>             Callback function
+ * @param[in]  None
  *
- * @return  
+ * @return
  *  - 0: Success
  *  - 1: Failure
  */
-bStatus_t bhs_add_service(uint32 services);
+bStatus_t bs_add_service(void);
 
 /**
- * @brief      Set humidity value.
+ * @brief      Set characterictics value.
  *
- * @param[in]  <char_id>        Characteristic ID
- *             <len>            Length of `value`
- *             <value>          Pointer to data to write. This is dependent on
- *                              the parameter ID and WILL be cast to the appropriate 
- *                              data type (example: data type of uint16 will be cast to 
- *                              uint16 pointer).
+ * @param[in]  char_id        Characteristic ID
+ *             len            Length of `value`
+ *             value          Pointer to data to write. This is dependent on
+ *                            the parameter ID and WILL be cast to the appropriate 
+ *                            data type (example: data type of uint16 will be cast to 
+ *                            uint16 pointer).
  *
- * @return  
+ * @return
  *  - SUCCESS
  *  - INVALIDPARAMETER
  */
-bStatus_t bhs_set_parameter(bhs_id_t char_id, uint8 len, void *value);
+bStatus_t bs_set_parameter(bs_id_t char_id, uint8 len, void *value);
 
 /**
- * @brief      Get humidity value.
+ * @brief      Get characterictics value.
  *
- * @param[in]  <char_id>        Characteristic ID
- *             <value>          pointer to data to write. This is dependent on
- *                              the parameter ID and WILL be cast to the appropriate 
- *                              data type (example: data type of uint16 will be cast to 
- *                              uint16 pointer).
+ * @param[in]  char_id        Characteristic ID
+ *             value          Pointer to data to write. This is dependent on
+ *                            the parameter ID and WILL be cast to the appropriate 
+ *                            data type (example: data type of uint16 will be cast to 
+ *                            uint16 pointer).
  *
- * @return  
+ * @return
  *  - SUCCESS
  *  - INVALIDPARAMETER
  */
-bStatus_t bhs_get_parameter(bhs_id_t char_id, void *value);
+bStatus_t bs_get_parameter(bs_id_t char_id, void *value);
 
 /**
  * @brief       Send a notification containing a humidity measurement.
  *
- * @param[in]   <conn_handle>   Connection handle
- *              <p_noti>        Pointer to notification structure.
+ * @param[in]  char_id        Characteristic ID
+ *             conn_handle    Connection handle
+ *             p_noti         Pointer to notification structure.
  *
- * @return      Success or Failure
- * @note        This API is used by Data Logger Module (DLM)
+ * @return     Success or Failure
  * 
  */
-bStatus_t bhs_notify_humidity(uint16 conn_handle, attHandleValueNoti_t *p_noti);
+bStatus_t bs_notify(bs_id_t char_id, uint16 conn_handle, attHandleValueNoti_t *p_noti);
 
-#endif // __BLE_HUMIDITY_SERVICE_H
+#endif // __BLE_SERVICES_H
 
 /* End of file -------------------------------------------------------- */

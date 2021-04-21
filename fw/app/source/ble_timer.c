@@ -18,7 +18,7 @@
 /* Function definitions ----------------------------------------------- */
 void ble_timer_1s_init(uint8_t task_id)
 {
-  osal_start_reload_timer(task_id, TIMER_1000_MS_EVT, 2000);
+  osal_start_reload_timer(task_id, TIMER_1000_MS_EVT, 20000);
 }
 
 void ble_timer_stop(uint8_t task_id, uint16_t event_id)

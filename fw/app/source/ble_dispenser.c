@@ -148,17 +148,7 @@ static simpleProfileCBs_t simpleBLEPeripheral_SimpleProfileCBs =
 {
   m_ble_change_cb    // Charactersitic value change callback
 };
-static void on_ble_humi_service_evt(bhs_evt_t *pev)
-{ 
-  switch (pev->evt_id)
-  {
-  case BHS_EVT_NOTIFY_SENT:
-    break;
-  
-  default:
-    break;
-  }
-}
+
 /* Function definitions ----------------------------------------------- */
 /**
  * @brief   Initialization function for the Simple BLE Peripheral App Task.
@@ -270,9 +260,7 @@ void ble_dispenser_init(uint8 task_id)
   GGS_AddService(GATT_ALL_SERVICES);           // GAP
   GATTServApp_AddService(GATT_ALL_SERVICES);   // GATT attributes
   DevInfo_AddService();                        // Device Information Service
-  // SimpleProfile_AddService(GATT_ALL_SERVICES); // Simple GATT Profile
-  bhs_add_service(GATT_ALL_SERVICES); // Humidity Service
-
+  bs_add_service();                            // Add BLE Service
 
   // Setup a delayed profile startup
   osal_set_event(m_dispenser_task_id, SBP_START_DEVICE_EVT);
@@ -475,7 +463,7 @@ static void m_ble_update_adv(void)
 
 void periodic_1s_callback(void)
 {
-  // m_ble_notify_humi();
+  m_ble_notify_humi();
   LOG("Send notify");
 }
 
@@ -484,7 +472,7 @@ static void m_ble_notify_humi(void)
   attHandleValueNoti_t humi_meas;
   humi_meas.len = 1;
   humi_meas.value[0] = 100;
-  bhs_notify_humidity(m_gap_conn_handle, &humi_meas);
+  bs_notify(BS_ID_CHAR_1, m_gap_conn_handle, &humi_meas);
 }
 
 /* Publish Function definitions --------------------------------------- */
