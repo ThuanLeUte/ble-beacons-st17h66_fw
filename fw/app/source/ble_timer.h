@@ -1,14 +1,12 @@
 /**
  * @file       ble_timer.h
- * @copyright  Copyright (C) 2020 Fiot Co., Ltd. All rights reserved.
- * @license    This project is released under the Fiot License.
+ * @copyright  Copyright (C) 2020 Thuan Le. All rights reserved.
+ * @license    This project is released under the Thuan Le License.
  * @version    1.0.0
  * @date       2020-06-11
  * @author     Thuan Le
- *             
  * @brief      Timer for smart gadget.
- *             
- * @note          
+ * @note       None
  */
 
 /* Define to prevent recursive inclusion ------------------------------ */

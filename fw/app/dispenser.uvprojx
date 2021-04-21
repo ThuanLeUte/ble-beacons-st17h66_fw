@@ -558,6 +558,11 @@
               <FileType>1</FileType>
               <FilePath>.\source\ble_services.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\source\bsp.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

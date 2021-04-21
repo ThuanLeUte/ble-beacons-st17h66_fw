@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "ble_services.h": "c"
+        "ble_services.h": "c",
+        "bsp.h": "c",
+        "timer.h": "c",
+        "gpio.h": "c"
     }
 }

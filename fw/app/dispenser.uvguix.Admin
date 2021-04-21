@@ -93,8 +93,8 @@
       <flags>2</flags>
       <showCmd>3</showCmd>
       <MinPosition>
-        <xPos>-1</xPos>
-        <yPos>-1</yPos>
+        <xPos>-32000</xPos>
+        <yPos>-32000</yPos>
       </MinPosition>
       <MaxPosition>
         <xPos>-1</xPos>
@@ -1865,16 +1865,16 @@
       <ActiveTab>0</ActiveTab>
       <Doc>
         <Name>.\source\sbpProfile_ota.c</Name>
-        <ColumnNumber>0</ColumnNumber>
+        <ColumnNumber>40</ColumnNumber>
         <TopLine>114</TopLine>
-        <CurrentLine>97</CurrentLine>
+        <CurrentLine>126</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
       </Doc>
       <Doc>
         <Name>.\source\ble_dispenser.c</Name>
-        <ColumnNumber>1</ColumnNumber>
+        <ColumnNumber>0</ColumnNumber>
         <TopLine>434</TopLine>
         <CurrentLine>452</CurrentLine>
         <Folding>1</Folding>

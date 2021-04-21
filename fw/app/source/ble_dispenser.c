@@ -35,6 +35,7 @@
 #include "osal_snv.h"
 
 #include "ble_services.h"
+#include "bsp.h"
 
 /* Private defines ---------------------------------------------------- */
 #define DEVINFO_SYSTEM_ID_LEN   8
@@ -254,6 +255,7 @@ void ble_dispenser_init(uint8 task_id)
 
   // Setup a delayed profile startup
   osal_set_event(m_dispenser_task_id, SBP_START_DEVICE_EVT);
+  bsp_init();
 
   LOG("======================ble_dispenser_init done====================\n");
 }
@@ -292,6 +294,7 @@ uint16 ble_dispenser_process_event(uint8 task_id, uint16 events)
   {
     // Start the Device
     VOID GAPRole_StartDevice(&m_ble_dispenser_cbs);
+
     HCI_LE_ReadResolvingListSizeCmd();
 
     LOG("Devive start\n");
@@ -405,6 +408,7 @@ void periodic_1s_callback(void)
 {
   m_ble_notify_humi();
   LOG("Send notify");
+  bsp_init();
 }
 
 static void m_ble_notify_humi(void)
