@@ -26,47 +26,83 @@
 /* Private Defines ---------------------------------------------------------- */
 // Position of humidity measurement value in attribute array
 #define HUMI_MEAS_VALUE_POS    (2)
+#define IBEACON_SET_CMD_DATA_MAX_LEN		20
+#define SIMPLEPROFILE_SERVICE               0x00000001
+
 
 /* Private Macros ----------------------------------------------------------- */
-#define  BASE_UUID(uuid)    0x41, 0xee, 0x68, 0x3a, 0x99, 0x0f, \
-                           0x0e, 0x72, 0x85, 0x49, 0x8d, 0xb3, \
-                           LO_UINT16(uuid), HI_UINT16(uuid), 0x00, 0x00
-
 /* Private Defines ---------------------------------------------------------- */
-const uint8_t BHS_UUID[][ATT_UUID_SIZE] =
-{
-  { BASE_UUID(BHS_UUID_SERV) },
-  { BASE_UUID(BHS_UUID_CHAR_HUMI) }
+#define SIMPLEPROFILE_SERV_UUID               0xFFF3
+    
+// Key Pressed UUID
+#define SIMPLEPROFILE_CHAR1_UUID            0xFFF4
+#define SIMPLEPROFILE_CHAR2_UUID            0xFFF5
+
+// Simple GATT Profile Service UUID: 0xFFF0
+static CONST uint8 simpleProfileServUUID[ATT_BT_UUID_SIZE] =
+{ 
+  LO_UINT16(SIMPLEPROFILE_SERV_UUID), HI_UINT16(SIMPLEPROFILE_SERV_UUID)
 };
 
-#undef BASE_UUID
-
-uint8_t BHS_CHAR_PROPS[] =
-{
-  0,
-  GATT_PROP_READ | GATT_PROP_NOTIFY | GATT_PROP_EXTENDED 
+// Characteristic 1 UUID: 0xFFF1
+static CONST uint8 simpleProfilechar1UUID[ATT_BT_UUID_SIZE] =
+{ 
+  LO_UINT16(SIMPLEPROFILE_CHAR1_UUID), HI_UINT16(SIMPLEPROFILE_CHAR1_UUID)
 };
 
-static struct
+// Characteristic 2 UUID: 0xFFF2
+static CONST uint8 simpleProfilechar2UUID[ATT_BT_UUID_SIZE] =
+{ 
+  LO_UINT16(SIMPLEPROFILE_CHAR2_UUID), HI_UINT16(SIMPLEPROFILE_CHAR2_UUID)
+};
+
+
+// Simple Profile Service attribute
+static CONST gattAttrType_t simpleProfileService	=	{ ATT_BT_UUID_SIZE, simpleProfileServUUID };
+
+// Simple Profile Characteristic 1 Properties
+static uint8 simpleProfileChar1Props 			=	GATT_PROP_WRITE;
+// Characteristic 1 Value
+static uint8 simpleProfileChar1[IBEACON_SET_CMD_DATA_MAX_LEN];//max is 20bytes.
+// Simple Profile Characteristic 1 User Description
+static uint8 simpleProfileChar1UserDesp[]		=	"Set param\0";
+
+
+// Simple Profile Characteristic 2 Properties
+static uint8 simpleProfileChar2Props			=	GATT_PROP_READ | GATT_PROP_NOTIFY;
+// Characteristic 2 Value
+static uint8 simpleProfileChar2				=	0;
+// Simple Profile Characteristic 2 User Description
+static uint8 simpleProfileChar2UserDesp[]		=	"notify\0";
+static gattCharCfg_t simpleProfileChar2Config;//[GATT_MAX_NUM_CONN];
+
+static gattAttribute_t simpleProfileAttrTbl[]/*[SERVAPP_NUM_ATTR_SUPPORTED]*/ = 
 {
-  bhs_cb_t app_cb;
-  struct
-  {
-    struct
-    {
-      uint8_t humi[4]; // Humidity value;
-    }
-    value;
-  }
-  chars;
-}
-m_bhs;
+	/* type */								/* permissions */			/* handle */	/* pValue */
+	// Simple Profile Service
+	{{ ATT_BT_UUID_SIZE, primaryServiceUUID },			GATT_PERMIT_READ,		0,				(uint8 *)&simpleProfileService},
+
+	// Characteristic 1 Declaration
+	{{ ATT_BT_UUID_SIZE, characterUUID },				GATT_PERMIT_READ,		0,				&simpleProfileChar1Props},
+	// Characteristic Value 1
+	{{ ATT_BT_UUID_SIZE, simpleProfilechar1UUID },	GATT_PERMIT_READ | GATT_PERMIT_WRITE,	0,	&simpleProfileChar1[0]},
+
+	// Characteristic 2 Declaration
+	{{ ATT_BT_UUID_SIZE, characterUUID },				GATT_PERMIT_READ,		0,				&simpleProfileChar2Props},
+	// Characteristic Value 2
+	{{ ATT_BT_UUID_SIZE, simpleProfilechar2UUID },	GATT_PERMIT_READ | GATT_PERMIT_WRITE,	0,	(uint8 *)&simpleProfileChar2},
+	// Characteristic 2 User Description
+//	{{ ATT_BT_UUID_SIZE, charUserDescUUID },			GATT_PERMIT_READ,		0,				simpleProfileChar2UserDesp},           
+	// Characteristic 2 configuration
+	{{ ATT_BT_UUID_SIZE, clientCharCfgUUID },			GATT_PERMIT_READ | GATT_PERMIT_WRITE,	0,	(uint8 *)&simpleProfileChar2Config}, 
+
+};
+
 
 /*********************************************************************
  * Profile Attributes - variables
  */
-// Humidity Service attribute
-static CONST gattAttrType_t bhs_service = { ATT_UUID_SIZE, BHS_UUID[BHS_ID_SERVICE] };
+// Humidity Service attribut
 
 /* Private function prototypes ---------------------------------------- */
 static bStatus_t bhs_read_attr_cb(uint16           conn_handle,
@@ -81,84 +117,60 @@ static bStatus_t bhs_write_attr_cb(uint16          conn_handle,
                                   uint8           *p_value, 
                                   uint8            len, 
                                   uint16           offset);
-
+static void simpleProfile_HandleConnStatusCB( uint16 connHandle, uint8 changeType )
+{ 
+	// Make sure this is not loopback connection
+	if ( connHandle != LOOPBACK_CONNHANDLE )
+	{
+		// Reset Client Char Config if connection has dropped
+		if ( ( changeType == LINKDB_STATUS_UPDATE_REMOVED )      ||
+		     ( ( changeType == LINKDB_STATUS_UPDATE_STATEFLAGS ) && 
+		       ( !linkDB_Up( connHandle ) ) ) )
+		{ 
+			//   GATTServApp_InitCharCfg( connHandle, simpleProfileChar4Config );
+		}
+	}
+}
 /*********************************************************************
  * PROFILE CALLBACKS
  */
 // Humidity Service Callbacks
-CONST gattServiceCBs_t bhs_callbacks =
+static CONST gattServiceCBs_t simpleProfileCBs =
 {
-  bhs_read_attr_cb,  // Read callback function pointer
-  bhs_write_attr_cb, // Write callback function pointer
-  NULL               // Authorization callback function pointer
+  bhs_read_attr_cb,  	// Read callback function pointer
+  bhs_write_attr_cb, 	// Write callback function pointer
+  NULL                       	// Authorization callback function pointer
 };
 
 /*********************************************************************
- * Profile Attributes - Table
- */
-static gattAttribute_t bhs_atrr_tbl[] =
-{
-  // Humidity Profile Service
-  {
-    {ATT_BT_UUID_SIZE, primaryServiceUUID}, /* type */
-    GATT_PERMIT_READ,                       /* permissions */
-    0,                                      /* handle */
-    (uint8 *)&bhs_service                   /* p_value */
-  },
 
-  // Characteristic hunidity Declaration
-  {
-    {ATT_BT_UUID_SIZE, characterUUID},
-    GATT_PERMIT_READ,
-    0,
-    &BHS_CHAR_PROPS[BHS_ID_CHAR_HUMI]
-  },
-
-  // Characteristic Value hunidity
-  {
-    {ATT_UUID_SIZE, BHS_UUID[BHS_ID_CHAR_HUMI]},
-    GATT_PERMIT_READ,
-    0,
-    m_bhs.chars.value.humi
-  }
-};
 
 /* Public function ----------------------------------------- */
 
-bStatus_t bhs_add_service(bhs_cb_t cb)
+bStatus_t bhs_add_service(uint32 services)
 {
   uint8 status = SUCCESS;
 
-  // Register GATT attribute list and CBs with GATT Server App
-  status = GATTServApp_RegisterService(bhs_atrr_tbl,
-                                       GATT_NUM_ATTRS(bhs_atrr_tbl),
-                                       &bhs_callbacks);
-  LOG("Add humidity service\n");
-  if (status == SUCCESS)
-  {
-    m_bhs.app_cb = cb;
-  }
-  else
-  {
-    LOG("Add rawpass service failed!\n");
-  }
+  VOID linkDB_Register( simpleProfile_HandleConnStatusCB );  
 
-  return (status);
+
+  // Register GATT attribute list and CBs with GATT Server App
+  if ( services & SIMPLEPROFILE_SERVICE )
+  {
+    // Register GATT attribute list and CBs with GATT Server App
+    status = GATTServApp_RegisterService( simpleProfileAttrTbl, 
+                                          GATT_NUM_ATTRS( simpleProfileAttrTbl ),
+                                          &simpleProfileCBs );
+  }
+	LOG("addservic ret=%x\n",status);
+
+  return ( status );
 }
 
 bStatus_t bhs_set_parameter(bhs_id_t char_id, uint8 len, void *value)
 {
   bStatus_t ret = SUCCESS;
 
-  switch (char_id)
-  {
-  case BHS_ID_CHAR_HUMI:
-    osal_memcpy(m_bhs.chars.value.humi, value, len);
-    break;
-  default:
-    ret = INVALIDPARAMETER;
-    break;
-  }
 
   return (ret);
 }
@@ -167,15 +179,6 @@ bStatus_t bhs_get_parameter(bhs_id_t char_id, void *value)
 {
   bStatus_t ret = SUCCESS;
 
-  switch (char_id)
-  {
-  case BHS_ID_CHAR_HUMI:
-    osal_memcpy(value, m_bhs.chars.value.humi, sizeof(m_bhs.chars.value.humi));
-    break;
-  default:
-    ret = INVALIDPARAMETER;
-    break;
-  }
 
   return (ret);
 }
@@ -185,17 +188,7 @@ bStatus_t bhs_notify_humidity(uint16 conn_handle, attHandleValueNoti_t *p_noti)
   bhs_evt_t evt;
   bStatus_t ret;
 
-  // Set the handle
-  p_noti->handle = bhs_atrr_tbl[HUMI_MEAS_VALUE_POS].handle;
-  
-  // Send the notification
-  ret = GATT_Notification(conn_handle, p_noti, FALSE);
 
-  if (SUCCESS == ret)
-  {
-    evt.evt_id = BHS_EVT_NOTIFY_SENT;
-    m_bhs.app_cb(&evt);
-  }
   
   return ret; 
 }
@@ -221,21 +214,7 @@ static bStatus_t bhs_write_attr_cb(uint16          conn_handle,
   bStatus_t status = SUCCESS;
   LOG("Humidity write callback\n");
 
-  // If attribute permissions require authorization to write, return error
-  if (gattPermitAuthorWrite(p_attr->permissions))
-    return (ATT_ERR_INSUFFICIENT_AUTHOR);  // Insufficient authorization
 
-  if (p_attr->type.len == ATT_BT_UUID_SIZE)
-  {
-    // 16-bit UUID
-  }
-  else
-  {
-    // 128-bit UUID
-    if (osal_memcmp(p_attr->type.uuid, BHS_UUID[BHS_ID_CHAR_HUMI], 16))
-      osal_memcpy(m_bhs.chars.value.humi, p_value, 4);
-  }
-  
   return (status);
 }
 
@@ -261,28 +240,7 @@ static uint8 bhs_read_attr_cb(uint16 conn_handle,
   bStatus_t status = SUCCESS;
   LOG("Humidity read callback\n");
 
-  // If attribute permissions require authorization to read, return error
-  if (gattPermitAuthorRead(p_attr->permissions))
-    return (ATT_ERR_INSUFFICIENT_AUTHOR); // Insufficient authorization
 
-  if (p_attr->type.len == ATT_BT_UUID_SIZE)
-  {
-    // 16-bit UUID
-  }
-  else
-  {
-    // 128-bit UUID
-    if (osal_memcmp(p_attr->type.uuid, BHS_UUID[BHS_ID_CHAR_HUMI], 16))
-    {
-      *p_len = 4;
-      osal_memcpy(p_value, m_bhs.chars.value.humi, 4);
-    }
-    else
-    {
-      // Do nothing
-    }
-  }
-  
   return (status);
 }
 

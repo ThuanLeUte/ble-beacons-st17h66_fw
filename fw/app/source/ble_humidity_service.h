@@ -59,7 +59,7 @@ typedef void (*bhs_cb_t)(bhs_evt_t* pev);
  *  - 0: Success
  *  - 1: Failure
  */
-bStatus_t bhs_add_service(bhs_cb_t cb);
+bStatus_t bhs_add_service(uint32 services);
 
 /**
  * @brief      Set humidity value.

@@ -270,8 +270,8 @@ void ble_dispenser_init(uint8 task_id)
   GGS_AddService(GATT_ALL_SERVICES);           // GAP
   GATTServApp_AddService(GATT_ALL_SERVICES);   // GATT attributes
   DevInfo_AddService();                        // Device Information Service
-  SimpleProfile_AddService(GATT_ALL_SERVICES); // Simple GATT Profile
-  // bhs_add_service(on_ble_humi_service_evt); // Humidity Service
+  // SimpleProfile_AddService(GATT_ALL_SERVICES); // Simple GATT Profile
+  bhs_add_service(GATT_ALL_SERVICES); // Humidity Service
 
 
   // Setup a delayed profile startup
