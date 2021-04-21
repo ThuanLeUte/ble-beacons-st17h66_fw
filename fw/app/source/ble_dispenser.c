@@ -406,9 +406,26 @@ static void m_ble_dispenser_state_notification_cb(gaprole_States_t new_state)
 
 void periodic_1s_callback(void)
 {
-  m_ble_notify_humi();
-  LOG("Send notify");
-  bsp_init();
+  if (hal_gpio_read(USER_BUTTON))
+  {
+    hal_gpio_write(LED_INDICATE, 0);
+  }
+  else
+  {
+    LOG("Button pressed");
+    // m_ble_notify_humi();
+    LOG("Send notify");
+    hal_gpio_write(LED_INDICATE, 1);
+  }
+
+  if (hal_gpio_read(HALL_SENSOR_LOGIC))
+  {
+
+  }
+  else
+  {
+    LOG("Hall pressed");
+  }
 }
 
 static void m_ble_notify_humi(void)
