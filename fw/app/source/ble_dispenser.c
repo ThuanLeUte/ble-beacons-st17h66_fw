@@ -80,6 +80,9 @@
 volatile uint8_t g_current_adv_type = LL_ADV_CONNECTABLE_UNDIRECTED_EVT;
 
 /* Private variables -------------------------------------------------- */
+static uint8_t counter = 0;
+
+
 static uint8 m_dispenser_task_id;   // Task ID for internal task/event processing
 static gaprole_States_t m_gap_profile_state	=	GAPROLE_INIT;
 static uint16 m_gap_conn_handle;
@@ -128,8 +131,6 @@ ibeacon_store_data_t m_beacon_default_data = {
 
 // GAP GATT Attributes
 static uint8 m_att_device_name[GAP_DEVICE_NAME_LEN] = "DISPEN  ";
-perStatsByChan_t g_perStatsByChanTest;
-
 
 /* Private function prototypes ---------------------------------------- */
 static void m_ble_process_osal_msg(osal_event_hdr_t *m_msg);
@@ -253,12 +254,7 @@ void ble_dispenser_init(uint8 task_id)
   GGS_AddService(GATT_ALL_SERVICES);           // GAP
   GATTServApp_AddService(GATT_ALL_SERVICES);   // GATT attributes
   DevInfo_AddService();                        // Device Information Service
-  // bs_add_service();                            // Add BLE Service
-
-  ids_add_service();                           // Add BLE Service
-  cas_add_service();                           // Add BLE Service
-  brs_add_service();                           // Add BLE Service
-  // mss_add_service();                           // Add BLE Service
+  bs_add_service();                            // Add BLE Service
 
   // Setup a delayed profile startup
   osal_set_event(m_dispenser_task_id, SBP_START_DEVICE_EVT);
@@ -413,33 +409,25 @@ static void m_ble_dispenser_state_notification_cb(gaprole_States_t new_state)
 
 void periodic_1s_callback(void)
 {
-  // if (hal_gpio_read(USER_BUTTON))
-  // {
-  //   hal_gpio_write(LED_INDICATE, 0);
-  // }
-  // else
-  // {
-  //   LOG("Button pressed");
-  //   // m_ble_notify_humi();
-  //   LOG("Send notify");
-  //   hal_gpio_write(LED_INDICATE, 1);
-  // }
-
-  // if (hal_gpio_read(HALL_SENSOR_LOGIC))
-  // {
-
-  // }
-  // else
-  // {
-  //   LOG("Hall pressed");
-  // }
+  if (hal_gpio_read(USER_BUTTON))
+  {
+    hal_gpio_write(LED_INDICATE, 0);
+  }
+  else
+  {
+    LOG("Button pressed");
+    counter++;
+    m_ble_notify_humi();
+    LOG("Send notify");
+    hal_gpio_write(LED_INDICATE, 1);
+  }
 }
 
 static void m_ble_notify_humi(void)
 {
   attHandleValueNoti_t humi_meas;
   humi_meas.len = 1;
-  humi_meas.value[0] = 100;
+  humi_meas.value[0] = counter;
   bs_notify(BS_ID_CHAR_1, m_gap_conn_handle, &humi_meas);
 }
 
