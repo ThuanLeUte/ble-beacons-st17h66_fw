@@ -11,4 +11,4 @@
 
 | Board                         | Programer Tool      |
 |------------                   |-------------|
-| <img src="https://github.com/ThuanLeUte/ble-beacons-st17h66_fw/blob/main/documents/03_Pictures/board.PNG" width="250">  | <img src="https://github.com/ThuanLeUte/ble-beacons-st17h66_fw/blob/main/documents/03_Pictures/programer_connect.PNG"  width="250"> |
+| <img src="https://github.com/ThuanLeUte/ble-beacons-st17h66_fw/blob/main/documents/03_Pictures/board.PNG" width="400">  | <img src="https://github.com/ThuanLeUte/ble-beacons-st17h66_fw/blob/main/documents/03_Pictures/programer_connect.PNG"  width="400"> |
