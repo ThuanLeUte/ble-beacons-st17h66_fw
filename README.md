@@ -20,20 +20,20 @@
 ### 3. Open the tool as link \ble-beacons-st17h66_fw\documents\01_Tool\Lekit_200927.exe
 #### + Select the firmware as link: \ble-beacons-st17h66_fw\fw\app\bin\IBEACON.hex
 #### + Connect to the hardware COM port
-<img src="documents/03_Pictures/tool_1.PNG" width="500">
+<img src="documents/03_Pictures/tool_1.PNG" width="1000">
 
 ### 4. After connect to the Programer hardare tool
-<img src="documents/03_Pictures/tool_2.PNG" width="500">
+<img src="documents/03_Pictures/tool_2.PNG" width="1000">
 
 ### 5. Press the reset button on the hardware tool then:
-<img src="documents/03_Pictures/tool_3.PNG" width="500">
+<img src="documents/03_Pictures/tool_3.PNG" width="1000">
 
 ### 6. Erase the chip successfully
-<img src="documents/03_Pictures/tool_4.PNG" width="500">
+<img src="documents/03_Pictures/tool_4.PNG" width="1000">
 
 ### 7. Plashing the chip successfully
-<img src="documents/03_Pictures/tool_5.PNG" width="500">
+<img src="documents/03_Pictures/tool_5.PNG" width="1000">
 
 ### 8. Press reset button the device can run
-<img src="documents/03_Pictures/tool_6.PNG" width="500">
+<img src="documents/03_Pictures/tool_6.PNG" width="1000">
 
