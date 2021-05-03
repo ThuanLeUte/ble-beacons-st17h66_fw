@@ -1,7 +1,11 @@
 # BLE Beacons ST17H66
 
 ## I. Programing steps
-### 1. Connect board to the programer tool
+
+### 1. Programer tool set up
+Set up the programer as picture
+<img src="https://github.com/ThuanLeUte/ble-beacons-st17h66_fw/blob/main/documents/03_Pictures/programer_tool.PNG" width="500">
+### 2. Connect board to the programer tool
 | Board      | Programer Tool |
 |------------|-------------   |
 | VCC        | VCC            |
