@@ -1,17 +1,17 @@
 /**
- * @file       ble_services.h
+ * @file       ble_misc_services.h
  * @copyright  Copyright (C) 2020 ThuanLe. All rights reserved.
  * @license    This project is released under the ThuanLe License.
  * @version    2.0.0
  * @date       2020-06-02
  * @author     Thuan Le
- * @brief      BS (BLE Service)
+ * @brief      MCS (Miscellaneous Service)
  * @note       None
  */
 
 /* Define to prevent recursive inclusion ------------------------------ */
-#ifndef __BLE_SERVICES_H
-#define __BLE_SERVICES_H
+#ifndef __BLE_MCS_SERVICES_H
+#define __BLE_MCS_SERVICES_H
 
 /* Includes ----------------------------------------------------------- */
 #include "att.h"
@@ -20,12 +20,13 @@
 /* Public enumerate/structure ----------------------------------------- */
 typedef enum 
 {
-  BS_ID_SERVICE = 0x00,
-  BS_ID_CHAR_1,
-  BS_ID_CHAR_2,
-  BS_ID_MAX
+  MCS_ID_SERVICE = 0x00,
+  MCS_ID_CHAR_IDENTIFICATON,
+  MCS_ID_CHAR_MODE_SELECTION,
+  MCS_ID_CHAR_BOTTLE_REPLACEMENT,
+  MCS_ID_MAX
 }
-bs_id_t;
+mcs_id_t;
 
 /* Public function prototypes ----------------------------------------- */
 /**
@@ -38,7 +39,7 @@ bs_id_t;
  *  - 0: Success
  *  - 1: Failure
  */
-bStatus_t bs_add_service(void);
+bStatus_t mcs_add_service(void);
 
 /**
  * @brief      Set characterictics value.
@@ -54,7 +55,7 @@ bStatus_t bs_add_service(void);
  *  - SUCCESS
  *  - INVALIDPARAMETER
  */
-bStatus_t bs_set_parameter(bs_id_t char_id, uint8 len, void *value);
+bStatus_t mcs_set_parameter(mcs_id_t char_id, uint8 len, void *value);
 
 /**
  * @brief      Get characterictics value.
@@ -69,7 +70,7 @@ bStatus_t bs_set_parameter(bs_id_t char_id, uint8 len, void *value);
  *  - SUCCESS
  *  - INVALIDPARAMETER
  */
-bStatus_t bs_get_parameter(bs_id_t char_id, void *value);
+bStatus_t mcs_get_parameter(mcs_id_t char_id, void *value);
 
 /**
  * @brief       Send a notification containing a humidity measurement.
@@ -81,8 +82,8 @@ bStatus_t bs_get_parameter(bs_id_t char_id, void *value);
  * @return     Success or Failure
  * 
  */
-bStatus_t bs_notify(bs_id_t char_id, uint16 conn_handle, attHandleValueNoti_t *p_noti);
+bStatus_t mcs_notify(mcs_id_t char_id, uint16 conn_handle, attHandleValueNoti_t *p_noti);
 
-#endif // __BLE_SERVICES_H
+#endif // __BLE_MCS_SERVICES_H
 
 /* End of file -------------------------------------------------------- */

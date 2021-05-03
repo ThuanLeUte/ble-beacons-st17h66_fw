@@ -22,8 +22,8 @@
 #include "gapbondmgr.h"
 
 /* Private Defines ---------------------------------------------------------- */
-#define CAS_UUID_SERV                       (0xFFF2)
-#define CAS_UUID_CHAR_CLICK_AVAILABLE       (0xFFF3)
+#define CAS_UUID_SERV                       (0xFFF0)
+#define CAS_UUID_CHAR_CLICK_AVAILABLE       (0xFFF1)
 
 #define CHAR_CLICK_AVAILABLE_VALUE_POS      (2)
 
