@@ -22,14 +22,16 @@
 #include "gapbondmgr.h"
 
 /* Private Defines ---------------------------------------------------------- */
-#define MCS_UUID_SERV                      (0xFFF3)
-#define MCS_UUID_CHAR_IDENTIFICATION       (0xFFF4)
-#define MCS_UUID_CHAR_MODE_SELECTION       (0xFFF5)
-#define MCS_UUID_CHAR_BOTTLE_REPLACEMENT   (0xFFF6)
+#define MCS_UUID_SERV                      (0xFFF0)
+#define MCS_UUID_CHAR_CLICK_AVAILABLE      (0xFFF1)
+#define MCS_UUID_CHAR_IDENTIFICATION       (0xFFF2)
+#define MCS_UUID_CHAR_MODE_SELECTION       (0xFFF3)
+#define MCS_UUID_CHAR_BOTTLE_REPLACEMENT   (0xFFF5)
 
-#define CHAR_IDENTIFICATION_VALUE_POS           (2)
-#define CHAR_MODE_SELECTION_VALUE_POS           (4)
-#define CHAR_BOTTLE_REPLACEMENT_VALUE_POS       (6)
+#define CHAR_CLICK_AVAILABLE_VALUE_POS          (2)
+#define CHAR_IDENTIFICATION_VALUE_POS           (4)
+#define CHAR_MODE_SELECTION_VALUE_POS           (6)
+#define CHAR_BOTTLE_REPLACEMENT_VALUE_POS       (8)
 
 /* Private Macros ----------------------------------------------------------- */
 /* Private Defines ---------------------------------------------------------- */
@@ -37,6 +39,12 @@
 static CONST uint8 MCS_UUID[ATT_BT_UUID_SIZE] =
 { 
   LO_UINT16(MCS_UUID_SERV), HI_UINT16(MCS_UUID_SERV)
+};
+
+// Characteristic Click Available UUID
+static CONST uint8 MCS_CHAR_CLICK_AVAILABLE_UUID[ATT_BT_UUID_SIZE] =
+{ 
+  LO_UINT16(MCS_UUID_CHAR_CLICK_AVAILABLE), HI_UINT16(MCS_UUID_CHAR_CLICK_AVAILABLE)
 };
 
 // Characteristic Identification UUID
@@ -54,13 +62,14 @@ static CONST uint8 MCS_CHAR_MODE_SELECTION_UUID[ATT_BT_UUID_SIZE] =
 // Characteristic Bottle Replacement UUID
 static CONST uint8 MCS_CHAR_BOTTLE_REPLACEMENT_UUID[ATT_BT_UUID_SIZE] =
 { 
-  LO_UINT16(CHAR_BOTTLE_REPLACEMENT_VALUE_POS), HI_UINT16(CHAR_BOTTLE_REPLACEMENT_VALUE_POS)
+  LO_UINT16(MCS_UUID_CHAR_BOTTLE_REPLACEMENT), HI_UINT16(MCS_UUID_CHAR_BOTTLE_REPLACEMENT)
 };
 
 // Characterictic property
 uint8_t MCS_CHAR_PROPS[] =
 {
   0,
+  GATT_PROP_READ | GATT_PROP_NOTIFY,
   GATT_PROP_READ | GATT_PROP_NOTIFY,
   GATT_PROP_READ | GATT_PROP_NOTIFY,
   GATT_PROP_READ | GATT_PROP_NOTIFY,
@@ -76,6 +85,7 @@ static struct
   {
     struct
     {
+      uint8_t click_available[1];    // Charaterictic click availble value
       uint8_t identification[1];     // Charaterictic identification value;
       uint8_t mode_selection[1];     // Charaterictic mode selection value;
       uint8_t bottle_replacement[1]; // Charaterictic bottle replacement value;
@@ -95,6 +105,22 @@ static gattAttribute_t mcs_atrr_tbl[] =
     GATT_PERMIT_READ,                       /* permissions */
     0,                                      /* handle */
     (uint8 *)&mcs_service                   /* p_value */
+  },
+
+  // Characteristic Click Availble Declaration
+  {
+    {ATT_BT_UUID_SIZE, characterUUID},
+    GATT_PERMIT_READ,
+    0,
+    &MCS_CHAR_PROPS[MCS_ID_CHAR_CLICK_AVAILBLE]
+  },
+
+  // Characteristic Click Availble Value
+  {
+    {ATT_BT_UUID_SIZE, MCS_CHAR_CLICK_AVAILABLE_UUID},
+    GATT_PERMIT_READ | GATT_PERMIT_WRITE,
+    0,
+    m_mcs.chars.value.identification
   },
 
   // Characteristic Identification Declaration
@@ -142,7 +168,7 @@ static gattAttribute_t mcs_atrr_tbl[] =
     {ATT_BT_UUID_SIZE, MCS_CHAR_BOTTLE_REPLACEMENT_UUID},
     GATT_PERMIT_READ | GATT_PERMIT_WRITE,
     0,
-    m_mcs.chars.value.bottle_replacement
+    m_mcs.chars.value.mode_selection
   },
 };
 
@@ -206,6 +232,10 @@ bStatus_t mcs_notify(mcs_id_t char_id, uint16 conn_handle, attHandleValueNoti_t 
   // Set the handle
   switch (char_id)
   {
+  case MCS_ID_CHAR_CLICK_AVAILBLE:
+    p_noti->handle = mcs_atrr_tbl[CHAR_CLICK_AVAILABLE_VALUE_POS].handle;
+    break;
+
   case MCS_ID_CHAR_IDENTIFICATON:
     p_noti->handle = mcs_atrr_tbl[CHAR_IDENTIFICATION_VALUE_POS].handle;
     break;

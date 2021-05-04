@@ -150,6 +150,7 @@ bStatus_t cas_get_parameter(cas_id_t char_id, void *value)
   return (ret);
 }
 
+
 bStatus_t cas_notify(cas_id_t char_id, uint16 conn_handle, attHandleValueNoti_t *p_noti)
 {
   bStatus_t ret;
