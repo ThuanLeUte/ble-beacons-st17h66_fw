@@ -28,10 +28,10 @@
 #define MCS_UUID_CHAR_MODE_SELECTION       (0xFFF3)
 #define MCS_UUID_CHAR_BOTTLE_REPLACEMENT   (0xFFF5)
 
-#define CHAR_CLICK_AVAILABLE_VALUE_POS          (2)
-#define CHAR_IDENTIFICATION_VALUE_POS           (4)
-#define CHAR_MODE_SELECTION_VALUE_POS           (6)
-#define CHAR_BOTTLE_REPLACEMENT_VALUE_POS       (8)
+#define CHAR_CLICK_AVAILABLE_VALUE_POS     (2)
+#define CHAR_IDENTIFICATION_VALUE_POS      (4)
+#define CHAR_MODE_SELECTION_VALUE_POS      (6)
+#define CHAR_BOTTLE_REPLACEMENT_VALUE_POS  (8)
 
 /* Private Macros ----------------------------------------------------------- */
 /* Private Defines ---------------------------------------------------------- */

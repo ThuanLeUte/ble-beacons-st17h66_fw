@@ -1874,9 +1874,9 @@
       </Doc>
       <Doc>
         <Name>.\source\ble_dispenser.c</Name>
-        <ColumnNumber>24</ColumnNumber>
+        <ColumnNumber>12</ColumnNumber>
         <TopLine>381</TopLine>
-        <CurrentLine>390</CurrentLine>
+        <CurrentLine>391</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

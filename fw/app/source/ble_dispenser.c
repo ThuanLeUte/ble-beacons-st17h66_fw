@@ -53,7 +53,7 @@
 #define DEFAULT_DESIRED_SLAVE_LATENCY 0
 
 // Supervision timeout value (units of 10ms, 1000=10s) if automatic parameter update request is enabled
-#define DEFAULT_DESIRED_CONN_TIMEOUT 500
+#define DEFAULT_DESIRED_CONN_TIMEOUT 1000
 
 // Whether to enable automatic parameter update request when a connection is formed
 #define DEFAULT_ENABLE_UPDATE_REQUEST TRUE
@@ -81,7 +81,6 @@ volatile uint8_t g_current_adv_type = LL_ADV_CONNECTABLE_UNDIRECTED_EVT;
 
 /* Private variables -------------------------------------------------- */
 static uint8_t counter = 0;
-
 
 static uint8 m_dispenser_task_id;   // Task ID for internal task/event processing
 static gaprole_States_t m_gap_profile_state	=	GAPROLE_INIT;
@@ -369,27 +368,12 @@ static void m_ble_dispenser_state_notification_cb(gaprole_States_t new_state)
     uint8 own_address[B_ADDR_LEN];
     uint8 system_id[DEVINFO_SYSTEM_ID_LEN];
 
-    // uint8 initial_advertising_enable = TRUE;
+    uint8 initial_advertising_enable = TRUE;
     GAPRole_GetParameter(GAPROLE_BD_ADDR, own_address);
 
-    // use 6 bytes of device address for 8 bytes of system ID value
-    system_id[0] = own_address[0];
-    system_id[1] = own_address[1];
-    system_id[2] = own_address[2];
-    // set middle bytes to zero
-    system_id[4] = 0x00;
-    system_id[3] = 0x00;
-    // shift three bytes up
-    system_id[7] = own_address[5];
-    system_id[6] = own_address[4];
-    system_id[5] = own_address[3];
-
-    DevInfo_SetParameter(DEVINFO_SYSTEM_ID, DEVINFO_SYSTEM_ID_LEN, system_id);
-
-
-    // // Set the GAP Characteristics
-    // GGS_SetParameter(GGS_DEVICE_NAME_ATT, GAP_DEVICE_NAME_LEN, m_att_device_name);
-    // GAPRole_SetParameter(GAPROLE_ADVERT_ENABLED, sizeof(uint8), &initial_advertising_enable);
+    // Set the GAP Characteristics
+    GGS_SetParameter(GGS_DEVICE_NAME_ATT, GAP_DEVICE_NAME_LEN, m_att_device_name);
+    GAPRole_SetParameter(GAPROLE_ADVERT_ENABLED, sizeof(uint8), &initial_advertising_enable);
   }
   break;
 
@@ -397,7 +381,7 @@ static void m_ble_dispenser_state_notification_cb(gaprole_States_t new_state)
     break;
 
   case GAPROLE_CONNECTED:
-    // HCI_PPLUS_ConnEventDoneNoticeCmd(m_dispenser_task_id, NULL);
+    HCI_PPLUS_ConnEventDoneNoticeCmd(m_dispenser_task_id, NULL);
     GAPRole_GetParameter(GAPROLE_CONNHANDLE, &m_gap_conn_handle);
     osal_set_event(m_dispenser_task_id, SBP_CONNECTED_EVT);
     break;
