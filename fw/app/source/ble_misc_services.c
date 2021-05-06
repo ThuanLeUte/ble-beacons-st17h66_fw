@@ -21,6 +21,9 @@
 #include "gattservapp.h"
 #include "gapbondmgr.h"
 
+#include "sbpProfile_ota.h"
+#include "ble_dispenser.h"
+
 /* Private Defines ---------------------------------------------------------- */
 #define MCS_UUID_SERV                      (0xFFF0)
 #define MCS_UUID_CHAR_CLICK_AVAILABLE      (0xFFF1)
@@ -69,10 +72,10 @@ static CONST uint8 MCS_CHAR_BOTTLE_REPLACEMENT_UUID[ATT_BT_UUID_SIZE] =
 uint8_t MCS_CHAR_PROPS[] =
 {
   0,
-  GATT_PROP_READ | GATT_PROP_NOTIFY,
-  GATT_PROP_READ | GATT_PROP_NOTIFY,
-  GATT_PROP_READ | GATT_PROP_NOTIFY,
-  GATT_PROP_READ | GATT_PROP_NOTIFY,
+  GATT_PROP_READ | GATT_PROP_WRITE |GATT_PROP_NOTIFY,
+  GATT_PROP_READ | GATT_PROP_WRITE |GATT_PROP_NOTIFY,
+  GATT_PROP_READ | GATT_PROP_WRITE |GATT_PROP_NOTIFY,
+  GATT_PROP_READ | GATT_PROP_WRITE |GATT_PROP_NOTIFY,
 };
 
 // Profile Service attribute
@@ -85,10 +88,10 @@ static struct
   {
     struct
     {
-      uint8_t click_available[1];    // Charaterictic click availble value
-      uint8_t identification[1];     // Charaterictic identification value;
+      uint8_t click_available[4];    // Charaterictic click availble value
+      uint8_t identification[4];     // Charaterictic identification value;
       uint8_t mode_selection[1];     // Charaterictic mode selection value;
-      uint8_t bottle_replacement[1]; // Charaterictic bottle replacement value;
+      uint8_t bottle_replacement[4]; // Charaterictic bottle replacement value;
     }
     value;
   }
@@ -195,11 +198,27 @@ static CONST gattServiceCBs_t mcs_callbacks =
   mcs_write_attr_cb,
   NULL
 };
-
+static void simpleProfile_HandleConnStatusCB( uint16 connHandle, uint8 changeType )
+{ 
+	// Make sure this is not loopback connection
+	if ( connHandle != LOOPBACK_CONNHANDLE )
+	{
+		// Reset Client Char Config if connection has dropped
+		if ( ( changeType == LINKDB_STATUS_UPDATE_REMOVED )      ||
+		     ( ( changeType == LINKDB_STATUS_UPDATE_STATEFLAGS ) && 
+		       ( !linkDB_Up( connHandle ) ) ) )
+		{ 
+			//   GATTServApp_InitCharCfg( connHandle, simpleProfileChar4Config );
+		}
+	}
+}
 /* Public function ----------------------------------------- */
 bStatus_t mcs_add_service(void)
 {
   uint8 status = SUCCESS;
+
+    // Register with Link DB to receive link status change callback
+  VOID linkDB_Register( simpleProfile_HandleConnStatusCB );  
 
   // Register GATT attribute list and CBs with GATT Server App
   status = GATTServApp_RegisterService(mcs_atrr_tbl,
@@ -215,12 +234,58 @@ bStatus_t mcs_set_parameter(mcs_id_t char_id, uint8 len, void *value)
 {
   bStatus_t ret = SUCCESS;
 
+  switch (char_id)
+  {
+  case MCS_ID_CHAR_CLICK_AVAILBLE:
+    osal_memcpy(m_mcs.chars.value.click_available, value, len);
+    break;
+
+  case MCS_ID_CHAR_IDENTIFICATON:
+    osal_memcpy(m_mcs.chars.value.identification, value, len);
+    break;
+
+  case MCS_ID_CHAR_MODE_SELECTION:
+    osal_memcpy(m_mcs.chars.value.mode_selection, value, len);
+    break;
+
+  case MCS_ID_CHAR_BOTTLE_REPLACEMENT:
+    osal_memcpy(m_mcs.chars.value.bottle_replacement, value, len);
+    break;
+
+  default:
+    ret = INVALIDPARAMETER;
+    break;
+  }
+
   return (ret);
 }
 
 bStatus_t mcs_get_parameter(mcs_id_t char_id, void *value)
 {
   bStatus_t ret = SUCCESS;
+
+  switch (char_id)
+  {
+  case MCS_ID_CHAR_CLICK_AVAILBLE:
+    osal_memcpy(value, m_mcs.chars.value.click_available, sizeof(m_mcs.chars.value.click_available));
+    break;
+
+  case MCS_ID_CHAR_IDENTIFICATON:
+    osal_memcpy(value, m_mcs.chars.value.identification, sizeof(m_mcs.chars.value.identification));
+    break;
+
+  case MCS_ID_CHAR_MODE_SELECTION:
+    osal_memcpy(value, m_mcs.chars.value.mode_selection, sizeof(m_mcs.chars.value.mode_selection));
+    break;
+
+  case MCS_ID_CHAR_BOTTLE_REPLACEMENT:
+    osal_memcpy(value, m_mcs.chars.value.bottle_replacement, sizeof(m_mcs.chars.value.bottle_replacement));
+    break;
+
+  default:
+    ret = INVALIDPARAMETER;
+    break;
+  }
 
   return (ret);
 }
@@ -275,6 +340,25 @@ bStatus_t mcs_notify(mcs_id_t char_id, uint16 conn_handle, attHandleValueNoti_t 
  *
  * @return      Success or Failure
  */
+enum{
+	IBEACON_SET_DEV_NAME_CMD			=	0x11,
+	IBEACON_SET_UUID_CMD				=	0x12,
+	IBEACON_SET_MAJOR_CMD				=	0x13,
+	IBEACON_SET_MINOR_CMD				=	0x14,
+	IBEACON_SET_RSSI_CMD				=	0x15,
+	IBEACON_SET_ADV_INTVL_CMD			=	0x16,
+	IBEACON_SET_MAX_CMD				=	0x17
+}Beacon_CMD_DATA1;
+
+
+enum{
+	IBEACON_SET_FAIL					=	0x00,
+	IBEACON_SET_SUCCESS				=	0x01,
+	IBEACON_SET_DATA_FORMAT_ERROR		=	0x02,
+	IBEACON_SET_CHECKSUM_ERROR		=	0x03,
+	IBEACON_SET_CONNECT_FAIL			=	0x04
+}Beacon_CMD_RSP_DATA1;
+
 static bStatus_t mcs_write_attr_cb(uint16          conn_handle, 
                                   gattAttribute_t *p_attr,
                                   uint8           *p_value, 
@@ -283,6 +367,60 @@ static bStatus_t mcs_write_attr_cb(uint16          conn_handle,
 {
   bStatus_t status = SUCCESS;
   LOG("Miscellaneous write callback\n");
+
+  // If attribute permissions require authorization to write, return error
+  if (gattPermitAuthorWrite(p_attr->permissions))
+    return (ATT_ERR_INSUFFICIENT_AUTHOR); // Insufficient authorization
+
+  if (p_attr->type.len == ATT_BT_UUID_SIZE)
+  {
+    uint16 uuid = BUILD_UINT16(p_attr->type.uuid[0], p_attr->type.uuid[1]);
+
+    switch (uuid)
+    {
+      case MCS_UUID_CHAR_CLICK_AVAILABLE:
+        // LOG("Write MCS_CHAR_CLICK_AVAILABLE_UUID:\n");
+        // osal_memcpy(m_mcs.chars.value.click_available, p_value, 4);
+        // if (is_device_connected)
+        {
+                  m_mcs.chars.value.click_available[0] = p_value[0];
+        m_mcs.chars.value.click_available[1] = p_value[1];
+        m_mcs.chars.value.click_available[2] = p_value[2];
+        m_mcs.chars.value.click_available[3] = p_value[3];
+        }
+
+
+      break;
+      default:
+      break;
+    }
+  }
+
+  //   if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_CLICK_AVAILABLE_UUID, ATT_BT_UUID_SIZE))
+  //   {
+  //   osal_memcpy(m_mcs.chars.value.click_available, p_value, ));
+
+  //   // LOG("Write MCS_CHAR_CLICK_AVAILABLE_UUID: %d \n", m_mcs.chars.value.click_available);
+  // }
+  // else if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_IDENTIFICATION_UUID, ATT_BT_UUID_SIZE))
+  // {
+  //   // osal_memcpy(m_mcs.chars.value.identification, p_value, sizeof(m_mcs.chars.value.identification));
+
+  //   LOG("Write MCS_CHAR_IDENTIFICATION_UUID: %d \n", m_mcs.chars.value.identification);
+  // }
+  // else if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_MODE_SELECTION_UUID, ATT_BT_UUID_SIZE))
+  // {
+  //   // osal_memcpy(m_mcs.chars.value.mode_selection, p_value, sizeof(m_mcs.chars.value.mode_selection));
+
+  //   LOG("Write MCS_CHAR_MODE_SELECTION_UUID: %d \n", m_mcs.chars.value.mode_selection);
+  // }
+  // else if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_BOTTLE_REPLACEMENT_UUID, ATT_BT_UUID_SIZE))
+  // {
+  //   // osal_memcpy(m_mcs.chars.value.bottle_replacement, p_value, sizeof(m_mcs.chars.value.bottle_replacement));
+
+  //   LOG("Write MCS_CHAR_BOTTLE_REPLACEMENT_UUID: %d \n", m_mcs.chars.value.bottle_replacement);
+  // }
+
   return (status);
 }
 
