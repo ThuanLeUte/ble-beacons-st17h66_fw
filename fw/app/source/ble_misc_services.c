@@ -26,14 +26,14 @@
 
 /* Private Defines ---------------------------------------------------------- */
 #define MCS_UUID_SERV                      (0xFFF0)
-#define MCS_UUID_CHAR_CLICK_AVAILABLE      (0xFFF1)
-#define MCS_UUID_CHAR_IDENTIFICATION       (0xFFF2)
-#define MCS_UUID_CHAR_MODE_SELECTION       (0xFFF3)
+#define MCS_UUID_CHAR_IDENTIFICATION       (0xFFF1)
+#define MCS_UUID_CHAR_MODE_SELECTION       (0xFFF2)
+#define MCS_UUID_CHAR_CLICK_AVAILABLE      (0xFFF3)
 #define MCS_UUID_CHAR_BOTTLE_REPLACEMENT   (0xFFF4)
 
-#define CHAR_CLICK_AVAILABLE_VALUE_POS     (2)
-#define CHAR_IDENTIFICATION_VALUE_POS      (4)
-#define CHAR_MODE_SELECTION_VALUE_POS      (6)
+#define CHAR_IDENTIFICATION_VALUE_POS      (2)
+#define CHAR_MODE_SELECTION_VALUE_POS      (4)
+#define CHAR_CLICK_AVAILABLE_VALUE_POS     (6)
 #define CHAR_BOTTLE_REPLACEMENT_VALUE_POS  (8)
 
 /* Private Macros ----------------------------------------------------------- */
@@ -42,12 +42,6 @@
 static CONST uint8 MCS_UUID[ATT_BT_UUID_SIZE] =
 { 
   LO_UINT16(MCS_UUID_SERV), HI_UINT16(MCS_UUID_SERV)
-};
-
-// Characteristic Click Available UUID
-static CONST uint8 MCS_CHAR_CLICK_AVAILABLE_UUID[ATT_BT_UUID_SIZE] =
-{ 
-  LO_UINT16(MCS_UUID_CHAR_CLICK_AVAILABLE), HI_UINT16(MCS_UUID_CHAR_CLICK_AVAILABLE)
 };
 
 // Characteristic Identification UUID
@@ -60,6 +54,12 @@ static CONST uint8 MCS_CHAR_IDENTIFICATION_UUID[ATT_BT_UUID_SIZE] =
 static CONST uint8 MCS_CHAR_MODE_SELECTION_UUID[ATT_BT_UUID_SIZE] =
 { 
   LO_UINT16(MCS_UUID_CHAR_MODE_SELECTION), HI_UINT16(MCS_UUID_CHAR_MODE_SELECTION)
+};
+
+// Characteristic Click Available UUID
+static CONST uint8 MCS_CHAR_CLICK_AVAILABLE_UUID[ATT_BT_UUID_SIZE] =
+{ 
+  LO_UINT16(MCS_UUID_CHAR_CLICK_AVAILABLE), HI_UINT16(MCS_UUID_CHAR_CLICK_AVAILABLE)
 };
 
 // Characteristic Bottle Replacement UUID
@@ -88,9 +88,9 @@ static struct
   {
     struct
     {
-      uint8_t click_available[4];    // Charaterictic click availble value
       uint8_t identification[4];     // Charaterictic identification value;
       uint8_t mode_selection[1];     // Charaterictic mode selection value;
+      uint8_t click_available[4];    // Charaterictic click availble value
       uint8_t bottle_replacement[4]; // Charaterictic bottle replacement value;
     }
     value;
@@ -108,22 +108,6 @@ static gattAttribute_t mcs_atrr_tbl[] =
     GATT_PERMIT_READ,                       /* permissions */
     0,                                      /* handle */
     (uint8 *)&mcs_service                   /* p_value */
-  },
-
-  // Characteristic Click Availble Declaration
-  {
-    {ATT_BT_UUID_SIZE, characterUUID},
-    GATT_PERMIT_READ,
-    0,
-    &MCS_CHAR_PROPS[MCS_ID_CHAR_CLICK_AVAILBLE]
-  },
-
-  // Characteristic Click Availble Value
-  {
-    {ATT_BT_UUID_SIZE, MCS_CHAR_CLICK_AVAILABLE_UUID},
-    GATT_PERMIT_READ | GATT_PERMIT_WRITE,
-    0,
-    m_mcs.chars.value.identification
   },
 
   // Characteristic Identification Declaration
@@ -156,6 +140,22 @@ static gattAttribute_t mcs_atrr_tbl[] =
     GATT_PERMIT_READ | GATT_PERMIT_WRITE,
     0,
     m_mcs.chars.value.mode_selection
+  },
+
+  // Characteristic Click Availble Declaration
+  {
+    {ATT_BT_UUID_SIZE, characterUUID},
+    GATT_PERMIT_READ,
+    0,
+    &MCS_CHAR_PROPS[MCS_ID_CHAR_CLICK_AVAILBLE]
+  },
+
+  // Characteristic Click Availble Value
+  {
+    {ATT_BT_UUID_SIZE, MCS_CHAR_CLICK_AVAILABLE_UUID},
+    GATT_PERMIT_READ | GATT_PERMIT_WRITE,
+    0,
+    m_mcs.chars.value.identification
   },
 
   // Characteristic Bottle Replacement Declaration
@@ -359,11 +359,16 @@ static bStatus_t mcs_write_attr_cb(uint16          conn_handle,
 
     switch (uuid)
     {
-    case MCS_UUID_CHAR_CLICK_AVAILABLE:
-      LOG("Write MCS_CHAR_CLICK_AVAILABLE_UUID:\n");
-      osal_memcpy(m_mcs.chars.value.click_available, p_value, 4);
-
+    case MCS_UUID_CHAR_IDENTIFICATION:
+      osal_memcpy(m_mcs.chars.value.identification, p_value, 4);
+      LOG("Write MCS_UUID_CHAR_IDENTIFICATION:\n");
       break;
+
+    case MCS_UUID_CHAR_MODE_SELECTION:
+      LOG("Write MCS_UUID_CHAR_MODE_SELECTION:\n");
+      osal_memcpy(m_mcs.chars.value.mode_selection, p_value, 1);
+      break;
+
     default:
       break;
     }
