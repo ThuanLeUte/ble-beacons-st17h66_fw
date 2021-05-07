@@ -33,8 +33,8 @@
     Program header entries: 3
     Section header entries: 19
 
-    Program header offset: 588432 (0x0008fa90)
-    Section header offset: 588528 (0x0008faf0)
+    Program header offset: 579384 (0x0008d738)
+    Section header offset: 579480 (0x0008d798)
 
     Section header string table index: 18
 
@@ -6287,7 +6287,7 @@
         0x1fff49b4:    ff          .       DCB    255
     .constdata
     MCS_CHAR_BOTTLE_REPLACEMENT_UUID
-        0x1fff49b5:    f5ff00      ...     DCB    245,255,0
+        0x1fff49b5:    f4ff00      ...     DCB    244,255,0
     .constdata
     mcs_service
         0x1fff49b8:    00000002    ....    DCD    2
@@ -22399,9 +22399,9 @@
     Flags       : None (0x00000000)
     Addr        : 0x00000000
     File Offset : 367992 (0x59d78)
-    Size        : 56528 bytes (0xdcd0)
+    Size        : 56400 bytes (0xdc50)
     Link        : Section 15 (.strtab)
-    Info        : Last local symbol no = 1961
+    Info        : Last local symbol no = 1953
     Alignment   : 4
     Entry Size  : 16
 
@@ -22414,8 +22414,8 @@
     Type        : SHT_STRTAB (0x00000003)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 424520 (0x67a48)
-    Size        : 51740 bytes (0xca1c)
+    File Offset : 424392 (0x679c8)
+    Size        : 51516 bytes (0xc93c)
     Link        : SHN_UNDEF
     Info        : 0
     Alignment   : 1
@@ -22430,7 +22430,7 @@
     Type        : SHT_NOTE (0x00000007)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 476260 (0x74464)
+    File Offset : 475908 (0x74304)
     Size        : 40 bytes (0x28)
     Link        : SHN_UNDEF
     Info        : 0
@@ -22455,8 +22455,8 @@
     Type        : SHT_PROGBITS (0x00000001)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 476300 (0x7448c)
-    Size        : 111952 bytes (0x1b550)
+    File Offset : 475948 (0x7432c)
+    Size        : 103256 bytes (0x19358)
     Link        : SHN_UNDEF
     Info        : 0
     Alignment   : 1
@@ -22955,84 +22955,6 @@
     
     
     
-    ble_bottle_services.o
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
-    armlink --partial --no_add_relocs_to_undefined --no_generate_mapping_symbols --diag_suppress=9931,9931,6642 --cpu=Cortex-M0 --fpu=SoftVFP --output=.\objects\ble_bottle_services.o --vfemode=force
-
-    Input Comments:
-    
-    p3ed0-3
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
-    armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
-    ble_bottle_services.o
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: ArmCC [4d3637]
-    ArmCC --c99 --split_sections --debug -c -o.\objects\ble_bottle_services.o --depend=.\objects\ble_bottle_services.d --cpu=Cortex-M0 --apcs=interwork -O3 --diag_suppress=9931 -I..\components\inc -I..\components\ble\controller -I..\components\osal\include -I..\components\common -I..\components\ble\include -I..\components\ble\hci -I..\components\ble\host -I..\components\Profiles\ota_app -I..\components\Profiles\DevInfo -I..\components\Profiles\SimpleProfile -I..\components\Profiles\Roles -I.\source -I..\components\libraries\crc16 -I..\components\driver\clock -I..\components\arch\cm0 -I..\components\driver\pwrmgr -I..\components\driver\uart -I..\components\driver\gpio -I..\components\driver\timer -I..\misc -I..\components\driver\log -I..\components\libraries\cliface -I..\components\driver\key -I..\components\driver\pwm -I..\components\driver\flash -I..\components\libraries\fs -I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\Device\ARM\ARMCM0\Include -D__MICROLIB -DADV_NCONN_CFG=0x01 -DADV_CONN_CFG=0x02 -DSCAN_CFG=0x04 -DINIT_CFG=0x08 -DBROADCASTER_CFG=0x01 -DOBSERVER_CFG=0x02 -DPERIPHERAL_CFG=0x04 -DCENTRAL_CFG=0x08 -D__UVISION_VERSION=530 -D_RTE_ -DARMCM0 -D_RTE_ -DCFG_CP -DOSAL_CBTIMER_NUM_TASKS=1 -DHOST_CONFIG=4 -DHCI_TL_NONE=1 -DENABLE_LOG_ROM_=0 -D_BUILD_FOR_DTM_=0 -DDEBUG_INFO=1 -DDBG_ROM_MAIN=0 -DAPP_CFG=0 -DOSALMEM_METRICS=0 -DPHY_MCU_TYPE=MCU_BUMBEE_M0 -DUSE_FS=1 -DCFG_SLEEP_MODE=PWR_MODE_SLEEP -DDEBUG_INFO=1 --omf_browse=.\objects\ble_bottle_services.crf source\ble_bottle_services.c
-    
-    
-    
-    
-    
-    ble_click_services.o
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
-    armlink --partial --no_add_relocs_to_undefined --no_generate_mapping_symbols --diag_suppress=9931,9931,6642 --cpu=Cortex-M0 --fpu=SoftVFP --output=.\objects\ble_click_services.o --vfemode=force
-
-    Input Comments:
-    
-    p36f8-3
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
-    armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
-    ble_click_services.o
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: ArmCC [4d3637]
-    ArmCC --c99 --split_sections --debug -c -o.\objects\ble_click_services.o --depend=.\objects\ble_click_services.d --cpu=Cortex-M0 --apcs=interwork -O3 --diag_suppress=9931 -I..\components\inc -I..\components\ble\controller -I..\components\osal\include -I..\components\common -I..\components\ble\include -I..\components\ble\hci -I..\components\ble\host -I..\components\Profiles\ota_app -I..\components\Profiles\DevInfo -I..\components\Profiles\SimpleProfile -I..\components\Profiles\Roles -I.\source -I..\components\libraries\crc16 -I..\components\driver\clock -I..\components\arch\cm0 -I..\components\driver\pwrmgr -I..\components\driver\uart -I..\components\driver\gpio -I..\components\driver\timer -I..\misc -I..\components\driver\log -I..\components\libraries\cliface -I..\components\driver\key -I..\components\driver\pwm -I..\components\driver\flash -I..\components\libraries\fs -I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\Device\ARM\ARMCM0\Include -D__MICROLIB -DADV_NCONN_CFG=0x01 -DADV_CONN_CFG=0x02 -DSCAN_CFG=0x04 -DINIT_CFG=0x08 -DBROADCASTER_CFG=0x01 -DOBSERVER_CFG=0x02 -DPERIPHERAL_CFG=0x04 -DCENTRAL_CFG=0x08 -D__UVISION_VERSION=530 -D_RTE_ -DARMCM0 -D_RTE_ -DCFG_CP -DOSAL_CBTIMER_NUM_TASKS=1 -DHOST_CONFIG=4 -DHCI_TL_NONE=1 -DENABLE_LOG_ROM_=0 -D_BUILD_FOR_DTM_=0 -DDEBUG_INFO=1 -DDBG_ROM_MAIN=0 -DAPP_CFG=0 -DOSALMEM_METRICS=0 -DPHY_MCU_TYPE=MCU_BUMBEE_M0 -DUSE_FS=1 -DCFG_SLEEP_MODE=PWR_MODE_SLEEP -DDEBUG_INFO=1 --omf_browse=.\objects\ble_click_services.crf source\ble_click_services.c
-    
-    
-    
-    ble_id_services.o
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
-    armlink --partial --no_add_relocs_to_undefined --no_generate_mapping_symbols --diag_suppress=9931,9931,6642 --cpu=Cortex-M0 --fpu=SoftVFP --output=.\objects\ble_id_services.o --vfemode=force
-
-    Input Comments:
-    
-    p1210-3
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
-    armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
-    ble_id_services.o
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: ArmCC [4d3637]
-    ArmCC --c99 --split_sections --debug -c -o.\objects\ble_id_services.o --depend=.\objects\ble_id_services.d --cpu=Cortex-M0 --apcs=interwork -O3 --diag_suppress=9931 -I..\components\inc -I..\components\ble\controller -I..\components\osal\include -I..\components\common -I..\components\ble\include -I..\components\ble\hci -I..\components\ble\host -I..\components\Profiles\ota_app -I..\components\Profiles\DevInfo -I..\components\Profiles\SimpleProfile -I..\components\Profiles\Roles -I.\source -I..\components\libraries\crc16 -I..\components\driver\clock -I..\components\arch\cm0 -I..\components\driver\pwrmgr -I..\components\driver\uart -I..\components\driver\gpio -I..\components\driver\timer -I..\misc -I..\components\driver\log -I..\components\libraries\cliface -I..\components\driver\key -I..\components\driver\pwm -I..\components\driver\flash -I..\components\libraries\fs -I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\Device\ARM\ARMCM0\Include -D__MICROLIB -DADV_NCONN_CFG=0x01 -DADV_CONN_CFG=0x02 -DSCAN_CFG=0x04 -DINIT_CFG=0x08 -DBROADCASTER_CFG=0x01 -DOBSERVER_CFG=0x02 -DPERIPHERAL_CFG=0x04 -DCENTRAL_CFG=0x08 -D__UVISION_VERSION=530 -D_RTE_ -DARMCM0 -D_RTE_ -DCFG_CP -DOSAL_CBTIMER_NUM_TASKS=1 -DHOST_CONFIG=4 -DHCI_TL_NONE=1 -DENABLE_LOG_ROM_=0 -D_BUILD_FOR_DTM_=0 -DDEBUG_INFO=1 -DDBG_ROM_MAIN=0 -DAPP_CFG=0 -DOSALMEM_METRICS=0 -DPHY_MCU_TYPE=MCU_BUMBEE_M0 -DUSE_FS=1 -DCFG_SLEEP_MODE=PWR_MODE_SLEEP -DDEBUG_INFO=1 --omf_browse=.\objects\ble_id_services.crf source\ble_id_services.c
-    
-    
-    
-    
-    
-    ble_mode_services.o
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
-    armlink --partial --no_add_relocs_to_undefined --no_generate_mapping_symbols --diag_suppress=9931,9931,6642 --cpu=Cortex-M0 --fpu=SoftVFP --output=.\objects\ble_mode_services.o --vfemode=force
-
-    Input Comments:
-    
-    p36c8-3
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
-    armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
-    ble_mode_services.o
-    
-    Component: ARM Compiler 5.06 update 6 (build 750) Tool: ArmCC [4d3637]
-    ArmCC --c99 --split_sections --debug -c -o.\objects\ble_mode_services.o --depend=.\objects\ble_mode_services.d --cpu=Cortex-M0 --apcs=interwork -O3 --diag_suppress=9931 -I..\components\inc -I..\components\ble\controller -I..\components\osal\include -I..\components\common -I..\components\ble\include -I..\components\ble\hci -I..\components\ble\host -I..\components\Profiles\ota_app -I..\components\Profiles\DevInfo -I..\components\Profiles\SimpleProfile -I..\components\Profiles\Roles -I.\source -I..\components\libraries\crc16 -I..\components\driver\clock -I..\components\arch\cm0 -I..\components\driver\pwrmgr -I..\components\driver\uart -I..\components\driver\gpio -I..\components\driver\timer -I..\misc -I..\components\driver\log -I..\components\libraries\cliface -I..\components\driver\key -I..\components\driver\pwm -I..\components\driver\flash -I..\components\libraries\fs -I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\Device\ARM\ARMCM0\Include -D__MICROLIB -DADV_NCONN_CFG=0x01 -DADV_CONN_CFG=0x02 -DSCAN_CFG=0x04 -DINIT_CFG=0x08 -DBROADCASTER_CFG=0x01 -DOBSERVER_CFG=0x02 -DPERIPHERAL_CFG=0x04 -DCENTRAL_CFG=0x08 -D__UVISION_VERSION=530 -D_RTE_ -DARMCM0 -D_RTE_ -DCFG_CP -DOSAL_CBTIMER_NUM_TASKS=1 -DHOST_CONFIG=4 -DHCI_TL_NONE=1 -DENABLE_LOG_ROM_=0 -D_BUILD_FOR_DTM_=0 -DDEBUG_INFO=1 -DDBG_ROM_MAIN=0 -DAPP_CFG=0 -DOSALMEM_METRICS=0 -DPHY_MCU_TYPE=MCU_BUMBEE_M0 -DUSE_FS=1 -DCFG_SLEEP_MODE=PWR_MODE_SLEEP -DDEBUG_INFO=1 --omf_browse=.\objects\ble_mode_services.crf source\ble_mode_services.c
-    
-    
-    
-    
-    
     ble_misc_services.o
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
@@ -23040,7 +22962,7 @@
 
     Input Comments:
     
-    pb48-3
+    p2564-3
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: armasm [4d35ec]
     armasm --debug --diag_suppress=9931,9931,1602,1073 --cpu=Cortex-M0 --fpu=SoftVFP --apcs=/interwork/interwork --no_divide 
@@ -23048,6 +22970,9 @@
     
     Component: ARM Compiler 5.06 update 6 (build 750) Tool: ArmCC [4d3637]
     ArmCC --c99 --split_sections --debug -c -o.\objects\ble_misc_services.o --depend=.\objects\ble_misc_services.d --cpu=Cortex-M0 --apcs=interwork -O3 --diag_suppress=9931 -I..\components\inc -I..\components\ble\controller -I..\components\osal\include -I..\components\common -I..\components\ble\include -I..\components\ble\hci -I..\components\ble\host -I..\components\Profiles\ota_app -I..\components\Profiles\DevInfo -I..\components\Profiles\SimpleProfile -I..\components\Profiles\Roles -I.\source -I..\components\libraries\crc16 -I..\components\driver\clock -I..\components\arch\cm0 -I..\components\driver\pwrmgr -I..\components\driver\uart -I..\components\driver\gpio -I..\components\driver\timer -I..\misc -I..\components\driver\log -I..\components\libraries\cliface -I..\components\driver\key -I..\components\driver\pwm -I..\components\driver\flash -I..\components\libraries\fs -I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\Device\ARM\ARMCM0\Include -D__MICROLIB -DADV_NCONN_CFG=0x01 -DADV_CONN_CFG=0x02 -DSCAN_CFG=0x04 -DINIT_CFG=0x08 -DBROADCASTER_CFG=0x01 -DOBSERVER_CFG=0x02 -DPERIPHERAL_CFG=0x04 -DCENTRAL_CFG=0x08 -D__UVISION_VERSION=530 -D_RTE_ -DARMCM0 -D_RTE_ -DCFG_CP -DOSAL_CBTIMER_NUM_TASKS=1 -DHOST_CONFIG=4 -DHCI_TL_NONE=1 -DENABLE_LOG_ROM_=0 -D_BUILD_FOR_DTM_=0 -DDEBUG_INFO=1 -DDBG_ROM_MAIN=0 -DAPP_CFG=0 -DOSALMEM_METRICS=0 -DPHY_MCU_TYPE=MCU_BUMBEE_M0 -DUSE_FS=1 -DCFG_SLEEP_MODE=PWR_MODE_SLEEP -DDEBUG_INFO=1 --omf_browse=.\objects\ble_misc_services.crf source\ble_misc_services.c
+    
+    
+    
     
     
     startup_armcm0.o
@@ -23627,6 +23552,7 @@
     
     
     
+    
 
 ====================================
 
@@ -23636,7 +23562,7 @@
     Type        : SHT_STRTAB (0x00000003)
     Flags       : None (0x00000000)
     Addr        : 0x00000000
-    File Offset : 588252 (0x8f9dc)
+    File Offset : 579204 (0x8d684)
     Size        : 180 bytes (0xb4)
     Link        : SHN_UNDEF
     Info        : 0

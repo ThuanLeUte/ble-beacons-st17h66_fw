@@ -559,26 +559,6 @@
               <FilePath>.\source\bsp.c</FilePath>
             </File>
             <File>
-              <FileName>ble_bottle_services.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\source\ble_bottle_services.c</FilePath>
-            </File>
-            <File>
-              <FileName>ble_click_services.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\source\ble_click_services.c</FilePath>
-            </File>
-            <File>
-              <FileName>ble_id_services.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\source\ble_id_services.c</FilePath>
-            </File>
-            <File>
-              <FileName>ble_mode_services.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\source\ble_mode_services.c</FilePath>
-            </File>
-            <File>
               <FileName>ble_misc_services.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\source\ble_misc_services.c</FilePath>
