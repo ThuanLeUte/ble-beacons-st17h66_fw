@@ -340,25 +340,6 @@ bStatus_t mcs_notify(mcs_id_t char_id, uint16 conn_handle, attHandleValueNoti_t 
  *
  * @return      Success or Failure
  */
-enum{
-	IBEACON_SET_DEV_NAME_CMD			=	0x11,
-	IBEACON_SET_UUID_CMD				=	0x12,
-	IBEACON_SET_MAJOR_CMD				=	0x13,
-	IBEACON_SET_MINOR_CMD				=	0x14,
-	IBEACON_SET_RSSI_CMD				=	0x15,
-	IBEACON_SET_ADV_INTVL_CMD			=	0x16,
-	IBEACON_SET_MAX_CMD				=	0x17
-}Beacon_CMD_DATA1;
-
-
-enum{
-	IBEACON_SET_FAIL					=	0x00,
-	IBEACON_SET_SUCCESS				=	0x01,
-	IBEACON_SET_DATA_FORMAT_ERROR		=	0x02,
-	IBEACON_SET_CHECKSUM_ERROR		=	0x03,
-	IBEACON_SET_CONNECT_FAIL			=	0x04
-}Beacon_CMD_RSP_DATA1;
-
 static bStatus_t mcs_write_attr_cb(uint16          conn_handle, 
                                   gattAttribute_t *p_attr,
                                   uint8           *p_value, 
@@ -378,45 +359,35 @@ static bStatus_t mcs_write_attr_cb(uint16          conn_handle,
 
     switch (uuid)
     {
-      case MCS_UUID_CHAR_CLICK_AVAILABLE:
-        // LOG("Write MCS_CHAR_CLICK_AVAILABLE_UUID:\n");
-        // osal_memcpy(m_mcs.chars.value.click_available, p_value, 4);
-        // if (is_device_connected)
-        {
-                  m_mcs.chars.value.click_available[0] = p_value[0];
-        m_mcs.chars.value.click_available[1] = p_value[1];
-        m_mcs.chars.value.click_available[2] = p_value[2];
-        m_mcs.chars.value.click_available[3] = p_value[3];
-        }
-
+    case MCS_UUID_CHAR_CLICK_AVAILABLE:
+      LOG("Write MCS_CHAR_CLICK_AVAILABLE_UUID:\n");
+      osal_memcpy(m_mcs.chars.value.click_available, p_value, 4);
 
       break;
-      default:
+    default:
       break;
     }
   }
 
-  //   if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_CLICK_AVAILABLE_UUID, ATT_BT_UUID_SIZE))
-  //   {
-  //   osal_memcpy(m_mcs.chars.value.click_available, p_value, ));
-
-  //   // LOG("Write MCS_CHAR_CLICK_AVAILABLE_UUID: %d \n", m_mcs.chars.value.click_available);
+  // if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_CLICK_AVAILABLE_UUID, ATT_BT_UUID_SIZE))
+  // {
+  //   LOG("Write MCS_CHAR_CLICK_AVAILABLE_UUID: %d \n", m_mcs.chars.value.click_available);
   // }
   // else if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_IDENTIFICATION_UUID, ATT_BT_UUID_SIZE))
   // {
-  //   // osal_memcpy(m_mcs.chars.value.identification, p_value, sizeof(m_mcs.chars.value.identification));
+  //   osal_memcpy(m_mcs.chars.value.identification, p_value, sizeof(m_mcs.chars.value.identification));
 
   //   LOG("Write MCS_CHAR_IDENTIFICATION_UUID: %d \n", m_mcs.chars.value.identification);
   // }
   // else if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_MODE_SELECTION_UUID, ATT_BT_UUID_SIZE))
   // {
-  //   // osal_memcpy(m_mcs.chars.value.mode_selection, p_value, sizeof(m_mcs.chars.value.mode_selection));
+  //   osal_memcpy(m_mcs.chars.value.mode_selection, p_value, sizeof(m_mcs.chars.value.mode_selection));
 
   //   LOG("Write MCS_CHAR_MODE_SELECTION_UUID: %d \n", m_mcs.chars.value.mode_selection);
   // }
   // else if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_BOTTLE_REPLACEMENT_UUID, ATT_BT_UUID_SIZE))
   // {
-  //   // osal_memcpy(m_mcs.chars.value.bottle_replacement, p_value, sizeof(m_mcs.chars.value.bottle_replacement));
+  //   osal_memcpy(m_mcs.chars.value.bottle_replacement, p_value, sizeof(m_mcs.chars.value.bottle_replacement));
 
   //   LOG("Write MCS_CHAR_BOTTLE_REPLACEMENT_UUID: %d \n", m_mcs.chars.value.bottle_replacement);
   // }

@@ -257,7 +257,7 @@ void ble_dispenser_init(uint8 task_id)
 
   // Setup a delayed profile startup
   osal_set_event(m_dispenser_task_id, SBP_START_DEVICE_EVT);
-  bsp_init();
+  // bsp_init();
 
   LOG("======================ble_dispenser_init done====================\n");
 }
@@ -409,18 +409,18 @@ static void m_ble_dispenser_state_notification_cb(gaprole_States_t new_state)
 
 void periodic_1s_callback(void)
 {
-  if (hal_gpio_read(USER_BUTTON))
-  {
-    hal_gpio_write(LED_INDICATE, 0);
-  }
-  else
-  {
-    LOG("Button pressed");
-    counter++;
-    m_ble_notify_humi();
-    LOG("Send notify");
-    hal_gpio_write(LED_INDICATE, 1);
-  }
+  // if (hal_gpio_read(USER_BUTTON))
+  // {
+  //   hal_gpio_write(LED_INDICATE, 0);
+  // }
+  // else
+  // {
+  //   LOG("Button pressed");
+  //   counter++;
+  //   m_ble_notify_humi();
+  //   LOG("Send notify");
+  //   hal_gpio_write(LED_INDICATE, 1);
+  // }
 }
 
 static void m_ble_notify_humi(void)
