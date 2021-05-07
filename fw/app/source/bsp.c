@@ -32,18 +32,8 @@ void bsp_init(void)
   hal_gpio_write(HALL_SENSOR_PWM, 1);
   while (1)
   {
-    // if (hal_gpio_read(USER_BUTTON))
-    // {
-    //   hal_gpio_write(LED_INDICATE, 1);
-    // }
-    // else
-    // {
-    //   hal_gpio_write(LED_INDICATE, 0);
-    // }
-
-    if (hal_gpio_read(HALL_SENSOR_LOGIC))
+    if ((hal_gpio_read(USER_BUTTON) == 0) || (hal_gpio_read(HALL_SENSOR_LOGIC) == 0))
     {
-      LOG("Hall pressed\n");
       hal_gpio_write(LED_INDICATE, 1);
     }
     else
