@@ -198,19 +198,20 @@ static CONST gattServiceCBs_t mcs_callbacks =
   mcs_write_attr_cb,
   NULL
 };
-static void simpleProfile_HandleConnStatusCB( uint16 connHandle, uint8 changeType )
-{ 
-	// Make sure this is not loopback connection
-	if ( connHandle != LOOPBACK_CONNHANDLE )
-	{
-		// Reset Client Char Config if connection has dropped
-		if ( ( changeType == LINKDB_STATUS_UPDATE_REMOVED )      ||
-		     ( ( changeType == LINKDB_STATUS_UPDATE_STATEFLAGS ) && 
-		       ( !linkDB_Up( connHandle ) ) ) )
-		{ 
-			//   GATTServApp_InitCharCfg( connHandle, simpleProfileChar4Config );
-		}
-	}
+
+static void simpleProfile_HandleConnStatusCB(uint16 connHandle, uint8 changeType)
+{
+  // Make sure this is not loopback connection
+  if (connHandle != LOOPBACK_CONNHANDLE)
+  {
+    // Reset Client Char Config if connection has dropped
+    if ((changeType == LINKDB_STATUS_UPDATE_REMOVED) ||
+        ((changeType == LINKDB_STATUS_UPDATE_STATEFLAGS) &&
+         (!linkDB_Up(connHandle))))
+    {
+      //   GATTServApp_InitCharCfg( connHandle, simpleProfileChar4Config );
+    }
+  }
 }
 /* Public function ----------------------------------------- */
 bStatus_t mcs_add_service(void)
@@ -357,21 +358,21 @@ static bStatus_t mcs_write_attr_cb(uint16          conn_handle,
   {
     uint16 uuid = BUILD_UINT16(p_attr->type.uuid[0], p_attr->type.uuid[1]);
 
-    switch (uuid)
-    {
-    case MCS_UUID_CHAR_IDENTIFICATION:
-      osal_memcpy(m_mcs.chars.value.identification, p_value, 4);
-      LOG("Write MCS_UUID_CHAR_IDENTIFICATION:\n");
-      break;
+    // switch (uuid)
+    // {
+    // case MCS_UUID_CHAR_IDENTIFICATION:
+    //   osal_memcpy(m_mcs.chars.value.identification, p_value, 4);
+    //   LOG("Write MCS_UUID_CHAR_IDENTIFICATION:\n");
+    //   break;
 
-    case MCS_UUID_CHAR_MODE_SELECTION:
-      LOG("Write MCS_UUID_CHAR_MODE_SELECTION:\n");
-      osal_memcpy(m_mcs.chars.value.mode_selection, p_value, 1);
-      break;
+    // case MCS_UUID_CHAR_MODE_SELECTION:
+    //   LOG("Write MCS_UUID_CHAR_MODE_SELECTION:\n");
+    //   osal_memcpy(m_mcs.chars.value.mode_selection, p_value, 1);
+    //   break;
 
-    default:
-      break;
-    }
+    // default:
+    //   break;
+    // }
   }
 
   // if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_CLICK_AVAILABLE_UUID, ATT_BT_UUID_SIZE))
