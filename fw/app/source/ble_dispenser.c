@@ -257,7 +257,7 @@ void ble_dispenser_init(uint8 task_id)
 
   // Setup a delayed profile startup
   osal_set_event(m_dispenser_task_id, SBP_START_DEVICE_EVT);
-  // bsp_init();
+  bsp_init();
 
   LOG("======================ble_dispenser_init done====================\n");
 }
