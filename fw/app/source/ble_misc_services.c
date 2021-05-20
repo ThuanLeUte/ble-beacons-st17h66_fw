@@ -29,11 +29,11 @@
 #define MCS_UUID_CHAR_IDENTIFICATION       (0xFFF1)
 #define MCS_UUID_CHAR_MODE_SELECTION       (0xFFF2)
 #define MCS_UUID_CHAR_CLICK_AVAILABLE      (0xFFF3)
-#define MCS_UUID_CHAR_BOTTLE_REPLACEMENT   (0xFFF4)
+#define MCS_UUID_CHAR_BOTTLE_REPLACEMENT   (0xFFF5)
 
 #define CHAR_IDENTIFICATION_VALUE_POS      (2)
 #define CHAR_MODE_SELECTION_VALUE_POS      (4)
-#define CHAR_CLICK_AVAILABLE_VALUE_POS     (6)
+#define CHAR_CLICK_COUNT_VALUE_POS         (2)
 #define CHAR_BOTTLE_REPLACEMENT_VALUE_POS  (8)
 
 /* Private Macros ----------------------------------------------------------- */
@@ -57,7 +57,7 @@ static CONST uint8 MCS_CHAR_MODE_SELECTION_UUID[ATT_BT_UUID_SIZE] =
 };
 
 // Characteristic Click Available UUID
-static CONST uint8 MCS_CHAR_CLICK_AVAILABLE_UUID[ATT_BT_UUID_SIZE] =
+static CONST uint8 MCS_CHAR_CLICK_COUNT_UUID[ATT_BT_UUID_SIZE] =
 { 
   LO_UINT16(MCS_UUID_CHAR_CLICK_AVAILABLE), HI_UINT16(MCS_UUID_CHAR_CLICK_AVAILABLE)
 };
@@ -81,6 +81,9 @@ uint8_t MCS_CHAR_PROPS[] =
 // Profile Service attribute
 static CONST gattAttrType_t mcs_service = { ATT_BT_UUID_SIZE, MCS_UUID };
 
+static gattCharCfg_t simpleProfileChar2Config;
+
+
 // Profile struct
 static struct
 {
@@ -90,7 +93,7 @@ static struct
     {
       uint8_t identification[4];     // Charaterictic identification value;
       uint8_t mode_selection[1];     // Charaterictic mode selection value;
-      uint8_t click_available[4];    // Charaterictic click availble value
+      uint8_t click_count[1];        // Charaterictic click availble value
       uint8_t bottle_replacement[4]; // Charaterictic bottle replacement value;
     }
     value;
@@ -110,69 +113,76 @@ static gattAttribute_t mcs_atrr_tbl[] =
     (uint8 *)&mcs_service                   /* p_value */
   },
 
-  // Characteristic Identification Declaration
-  {
-    {ATT_BT_UUID_SIZE, characterUUID},
-    GATT_PERMIT_READ,
-    0,
-    &MCS_CHAR_PROPS[MCS_ID_CHAR_IDENTIFICATON]
-  },
+  // // Characteristic Identification Declaration
+  // {
+  //   {ATT_BT_UUID_SIZE, characterUUID},
+  //   GATT_PERMIT_READ,
+  //   0,
+  //   &MCS_CHAR_PROPS[MCS_ID_CHAR_IDENTIFICATON]
+  // },
 
-  // Characteristic Identification Value
-  {
-    {ATT_BT_UUID_SIZE, MCS_CHAR_IDENTIFICATION_UUID},
-    GATT_PERMIT_READ | GATT_PERMIT_WRITE,
-    0,
-    m_mcs.chars.value.identification
-  },
+  // // Characteristic Identification Value
+  // {
+  //   {ATT_BT_UUID_SIZE, MCS_CHAR_IDENTIFICATION_UUID},
+  //   GATT_PERMIT_READ | GATT_PERMIT_WRITE,
+  //   0,
+  //   m_mcs.chars.value.identification
+  // },
 
-  // Characteristic Mode Selection Declaration
-  {
-    {ATT_BT_UUID_SIZE, characterUUID},
-    GATT_PERMIT_READ,
-    0,
-    &MCS_CHAR_PROPS[MCS_ID_CHAR_MODE_SELECTION]
-  },
+  // // Characteristic Mode Selection Declaration
+  // {
+  //   {ATT_BT_UUID_SIZE, characterUUID},
+  //   GATT_PERMIT_READ,
+  //   0,
+  //   &MCS_CHAR_PROPS[MCS_ID_CHAR_MODE_SELECTION]
+  // },
 
-  // Characteristic Mode Selection Value
-  {
-    {ATT_BT_UUID_SIZE, MCS_CHAR_MODE_SELECTION_UUID},
-    GATT_PERMIT_READ | GATT_PERMIT_WRITE,
-    0,
-    m_mcs.chars.value.mode_selection
-  },
+  // // Characteristic Mode Selection Value
+  // {
+  //   {ATT_BT_UUID_SIZE, MCS_CHAR_MODE_SELECTION_UUID},
+  //   GATT_PERMIT_READ | GATT_PERMIT_WRITE,
+  //   0,
+  //   m_mcs.chars.value.mode_selection
+  // },
 
   // Characteristic Click Availble Declaration
   {
     {ATT_BT_UUID_SIZE, characterUUID},
     GATT_PERMIT_READ,
     0,
-    &MCS_CHAR_PROPS[MCS_ID_CHAR_CLICK_AVAILBLE]
+    &MCS_CHAR_PROPS[MCS_ID_CHAR_CLICK_COUNT]
   },
 
   // Characteristic Click Availble Value
   {
-    {ATT_BT_UUID_SIZE, MCS_CHAR_CLICK_AVAILABLE_UUID},
+    {ATT_BT_UUID_SIZE, MCS_CHAR_CLICK_COUNT_UUID},
     GATT_PERMIT_READ | GATT_PERMIT_WRITE,
     0,
-    m_mcs.chars.value.identification
+    m_mcs.chars.value.click_count
   },
 
-  // Characteristic Bottle Replacement Declaration
   {
-    {ATT_BT_UUID_SIZE, characterUUID},
-    GATT_PERMIT_READ,
-    0,
-    &MCS_CHAR_PROPS[MCS_ID_CHAR_BOTTLE_REPLACEMENT]
-  },
-
-  // Characteristic Bottle Replacement Value
-  {
-    {ATT_BT_UUID_SIZE, MCS_CHAR_BOTTLE_REPLACEMENT_UUID},
+    { ATT_BT_UUID_SIZE, clientCharCfgUUID },
     GATT_PERMIT_READ | GATT_PERMIT_WRITE,
     0,
-    m_mcs.chars.value.mode_selection
+    (uint8 *)&simpleProfileChar2Config
   },
+
+  // // Characteristic Bottle Replacement Declaration
+  // {
+  //   {ATT_BT_UUID_SIZE, characterUUID},
+  //   GATT_PERMIT_READ,
+  //   0,
+  //   &MCS_CHAR_PROPS[MCS_ID_CHAR_BOTTLE_REPLACEMENT]
+  // },
+
+  // // Characteristic Bottle Replacement Value
+  // {
+  //   {ATT_BT_UUID_SIZE, MCS_CHAR_BOTTLE_REPLACEMENT_UUID},
+  //   GATT_PERMIT_READ | GATT_PERMIT_WRITE,
+  //   0,
+  //   m_mcs.chars.value.mode_selection
+  // },
 };
 
 /* Private function prototypes ---------------------------------------- */
@@ -209,7 +219,7 @@ static void simpleProfile_HandleConnStatusCB(uint16 connHandle, uint8 changeType
         ((changeType == LINKDB_STATUS_UPDATE_STATEFLAGS) &&
          (!linkDB_Up(connHandle))))
     {
-      //   GATTServApp_InitCharCfg( connHandle, simpleProfileChar4Config );
+        // GATTServApp_InitCharCfg( connHandle, &simpleProfileChar2Config );
     }
   }
 }
@@ -237,8 +247,8 @@ bStatus_t mcs_set_parameter(mcs_id_t char_id, uint8 len, void *value)
 
   switch (char_id)
   {
-  case MCS_ID_CHAR_CLICK_AVAILBLE:
-    osal_memcpy(m_mcs.chars.value.click_available, value, len);
+  case MCS_ID_CHAR_CLICK_COUNT:
+    osal_memcpy(m_mcs.chars.value.click_count, value, len);
     break;
 
   case MCS_ID_CHAR_IDENTIFICATON:
@@ -267,8 +277,8 @@ bStatus_t mcs_get_parameter(mcs_id_t char_id, void *value)
 
   switch (char_id)
   {
-  case MCS_ID_CHAR_CLICK_AVAILBLE:
-    osal_memcpy(value, m_mcs.chars.value.click_available, sizeof(m_mcs.chars.value.click_available));
+  case MCS_ID_CHAR_CLICK_COUNT:
+    osal_memcpy(value, m_mcs.chars.value.click_count, sizeof(m_mcs.chars.value.click_count));
     break;
 
   case MCS_ID_CHAR_IDENTIFICATON:
@@ -296,36 +306,43 @@ bStatus_t mcs_notify(mcs_id_t char_id, uint16 conn_handle, attHandleValueNoti_t 
   bStatus_t ret;
 
   // Set the handle
-  switch (char_id)
-  {
-  case MCS_ID_CHAR_CLICK_AVAILBLE:
-    p_noti->handle = mcs_atrr_tbl[CHAR_CLICK_AVAILABLE_VALUE_POS].handle;
-    break;
+  // switch (char_id)
+  // {
+  // case MCS_ID_CHAR_CLICK_COUNT:
+    // p_noti->handle = mcs_atrr_tbl[CHAR_CLICK_COUNT_VALUE_POS].handle;
+    // break;
 
-  case MCS_ID_CHAR_IDENTIFICATON:
-    p_noti->handle = mcs_atrr_tbl[CHAR_IDENTIFICATION_VALUE_POS].handle;
-    break;
+  // case MCS_ID_CHAR_IDENTIFICATON:
+  //   p_noti->handle = mcs_atrr_tbl[CHAR_IDENTIFICATION_VALUE_POS].handle;
+  //   break;
 
-  case MCS_ID_CHAR_MODE_SELECTION:
-    p_noti->handle = mcs_atrr_tbl[CHAR_MODE_SELECTION_VALUE_POS].handle;
-    break;
+  // case MCS_ID_CHAR_MODE_SELECTION:
+  //   p_noti->handle = mcs_atrr_tbl[CHAR_MODE_SELECTION_VALUE_POS].handle;
+  //   break;
  
-  case MCS_ID_CHAR_BOTTLE_REPLACEMENT:
-    p_noti->handle = mcs_atrr_tbl[CHAR_BOTTLE_REPLACEMENT_VALUE_POS].handle;
-    break;
+  // case MCS_ID_CHAR_BOTTLE_REPLACEMENT:
+  //   p_noti->handle = mcs_atrr_tbl[CHAR_BOTTLE_REPLACEMENT_VALUE_POS].handle;
+  //   break;
 
-  default:
-    break;
-  }
+  // default:
+  //   break;
+  // }
 
   // Send the notification
-  ret = GATT_Notification(conn_handle, p_noti, FALSE);
+	uint16 ccd_value = simpleProfileChar2Config.value;
 
-  if (SUCCESS == ret)
+
+  // If notifications enabled
+  if (ccd_value & GATT_CLIENT_CFG_NOTIFY)
   {
-    LOG("mcs_notify success\n");
+    ret = GATT_Notification(conn_handle, p_noti, FALSE);
+
+    if (SUCCESS == ret)
+    {
+      LOG("mcs_notify success\n");
+    }
   }
-  
+
   return ret; 
 }
 
@@ -358,8 +375,8 @@ static bStatus_t mcs_write_attr_cb(uint16          conn_handle,
   {
     uint16 uuid = BUILD_UINT16(p_attr->type.uuid[0], p_attr->type.uuid[1]);
 
-    // switch (uuid)
-    // {
+    switch (uuid)
+    {
     // case MCS_UUID_CHAR_IDENTIFICATION:
     //   osal_memcpy(m_mcs.chars.value.identification, p_value, 4);
     //   LOG("Write MCS_UUID_CHAR_IDENTIFICATION:\n");
@@ -370,14 +387,18 @@ static bStatus_t mcs_write_attr_cb(uint16          conn_handle,
     //   osal_memcpy(m_mcs.chars.value.mode_selection, p_value, 1);
     //   break;
 
-    // default:
-    //   break;
-    // }
+    case GATT_CLIENT_CHAR_CFG_UUID:
+      status = GATTServApp_ProcessCCCWriteReq(conn_handle, p_attr, p_value, len,
+                                              offset, GATT_CLIENT_CFG_NOTIFY);
+
+    default:
+      break;
+    }
   }
 
-  // if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_CLICK_AVAILABLE_UUID, ATT_BT_UUID_SIZE))
+  // if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_CLICK_COUNT_UUID, ATT_BT_UUID_SIZE))
   // {
-  //   LOG("Write MCS_CHAR_CLICK_AVAILABLE_UUID: %d \n", m_mcs.chars.value.click_available);
+  //   LOG("Write MCS_CHAR_CLICK_COUNT_UUID: %d \n", m_mcs.chars.value.click_count);
   // }
   // else if (osal_memcmp(p_attr->type.uuid, MCS_CHAR_IDENTIFICATION_UUID, ATT_BT_UUID_SIZE))
   // {

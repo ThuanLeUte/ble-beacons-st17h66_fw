@@ -16,6 +16,7 @@ THIS IS EMPTY HEADER
 #include "version.h"
 #include "fs.h"
 #define DEFAULT_UART_BAUD   115200
+#include "bsp.h"
 
 
 /*********************************************************************
@@ -202,6 +203,9 @@ static void hal_init(void)
     
     LOG_INIT();
     hal_gpio_init();				
+  
+//   bsp_init();
+
 }
 
 

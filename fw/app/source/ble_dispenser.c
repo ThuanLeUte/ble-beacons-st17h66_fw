@@ -36,6 +36,7 @@
 
 #include "ble_misc_services.h"
 #include "bsp.h"
+#include "damos_ram.h"
 
 /* Private defines ---------------------------------------------------- */
 #define DEVINFO_SYSTEM_ID_LEN   8
@@ -80,11 +81,9 @@
 volatile uint8_t g_current_adv_type = LL_ADV_CONNECTABLE_UNDIRECTED_EVT;
 
 /* Private variables -------------------------------------------------- */
-static uint8_t counter = 0;
-
 static uint8 m_dispenser_task_id;   // Task ID for internal task/event processing
 static gaprole_States_t m_gap_profile_state	=	GAPROLE_INIT;
-static uint16 m_gap_conn_handle;
+uint16 g_gap_conn_handle;
 
 // GAP - SCAN RSP data (max size = 31 bytes)
 static uint8 m_scan_rsp_data[] =
@@ -134,8 +133,6 @@ static uint8 m_att_device_name[GAP_DEVICE_NAME_LEN] = "DISPEN  ";
 /* Private function prototypes ---------------------------------------- */
 static void m_ble_process_osal_msg(osal_event_hdr_t *m_msg);
 static void m_ble_dispenser_state_notification_cb(gaprole_States_t new_state);
-
-static void m_ble_notify_humi(void);
 
 // GAP Role Callbacks
 static gapRolesCBs_t m_ble_dispenser_cbs =
@@ -250,14 +247,15 @@ void ble_dispenser_init(uint8 task_id)
   }
 
   // Initialize GATT attributes
+  bsp_init();
   GGS_AddService(GATT_ALL_SERVICES);           // GAP
   GATTServApp_AddService(GATT_ALL_SERVICES);   // GATT attributes
   DevInfo_AddService();                        // Device Information Service
   mcs_add_service();                           // Add BLE Service
+  // SimpleProfile_AddService(GATT_ALL_SERVICES);
 
   // Setup a delayed profile startup
   osal_set_event(m_dispenser_task_id, SBP_START_DEVICE_EVT);
-  // bsp_init();
 
   LOG("======================ble_dispenser_init done====================\n");
 }
@@ -312,6 +310,10 @@ uint16 ble_dispenser_process_event(uint8 task_id, uint16 events)
 
   if (events & SBP_NOTIFY_EVT)
   {
+    attHandleValueNoti_t humi_meas;
+    humi_meas.len = 1;
+    humi_meas.value[0] = g_dispenser.click_count;
+    mcs_notify(MCS_ID_CHAR_CLICK_COUNT, g_gap_conn_handle, &humi_meas);
     LOG("Device notify data");
     return (events ^ SBP_NOTIFY_EVT);
   }
@@ -382,7 +384,7 @@ static void m_ble_dispenser_state_notification_cb(gaprole_States_t new_state)
 
   case GAPROLE_CONNECTED:
     HCI_PPLUS_ConnEventDoneNoticeCmd(m_dispenser_task_id, NULL);
-    GAPRole_GetParameter(GAPROLE_CONNHANDLE, &m_gap_conn_handle);
+    GAPRole_GetParameter(GAPROLE_CONNHANDLE, &g_gap_conn_handle);
     osal_set_event(m_dispenser_task_id, SBP_CONNECTED_EVT);
     break;
 
@@ -405,30 +407,6 @@ static void m_ble_dispenser_state_notification_cb(gaprole_States_t new_state)
   LOG("[GAP ROLE %d]\n", new_state);
 
   VOID m_gap_profile_state;
-}
-
-void periodic_1s_callback(void)
-{
-  // if (hal_gpio_read(USER_BUTTON))
-  // {
-  //   hal_gpio_write(LED_INDICATE, 0);
-  // }
-  // else
-  // {
-  //   LOG("Button pressed");
-  //   counter++;
-  //   m_ble_notify_humi();
-  //   LOG("Send notify");
-  //   hal_gpio_write(LED_INDICATE, 1);
-  // }
-}
-
-static void m_ble_notify_humi(void)
-{
-  attHandleValueNoti_t humi_meas;
-  humi_meas.len = 1;
-  humi_meas.value[0] = counter;
-  mcs_notify(MCS_ID_CHAR_CLICK_AVAILBLE, m_gap_conn_handle, &humi_meas);
 }
 
 /* Publish Function definitions --------------------------------------- */

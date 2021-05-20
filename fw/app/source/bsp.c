@@ -11,8 +11,6 @@
 
 /* Includes ----------------------------------------------------------- */
 #include "bsp.h"
-
-#include "gpio.h"
 #include "log.h"
 
 /* Private defines ---------------------------------------------------- */
@@ -25,6 +23,7 @@ void bsp_init(void)
 
   // hal_gpio_pin_init(HALL_SENSOR_LOGIC, GPIO_INPUT);
   hal_gpio_pin_init(USER_BUTTON, GPIO_INPUT);
+  hal_gpioin_register(USER_BUTTON, NULL, pin_event_handler);//pin_event_handler);
 
   // hal_gpio_pull_set(LED_INDICATE, PULL_DOWN);
   // hal_gpio_pull_set(LED_INDICATE, GPIO_PULL_UP);

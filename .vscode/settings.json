@@ -4,5 +4,6 @@
         "bsp.h": "c",
         "timer.h": "c",
         "gpio.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

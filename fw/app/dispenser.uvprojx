@@ -563,6 +563,16 @@
               <FileType>1</FileType>
               <FilePath>.\source\ble_misc_services.c</FilePath>
             </File>
+            <File>
+              <FileName>damos_ram.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\source\damos_ram.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\source\sys.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -33,6 +33,8 @@ extern "C"
 /* Public enumerate/structure ----------------------------------------- */
 /* Public macros ------------------------------------------------------ */
 /* Public variables --------------------------------------------------- */
+extern uint16 g_gap_conn_handle;
+
 /* Public function prototypes ----------------------------------------- */
 extern void simpleProfile_Set_Notify_Event(void);
 extern void SimpleBLEPeripheral_SetDevName(uint8*data,uint8 len);
