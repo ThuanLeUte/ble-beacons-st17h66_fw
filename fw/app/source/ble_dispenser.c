@@ -247,12 +247,11 @@ void ble_dispenser_init(uint8 task_id)
   }
 
   // Initialize GATT attributes
-  bsp_init();
   GGS_AddService(GATT_ALL_SERVICES);           // GAP
   GATTServApp_AddService(GATT_ALL_SERVICES);   // GATT attributes
   DevInfo_AddService();                        // Device Information Service
   mcs_add_service();                           // Add BLE Service
-  // SimpleProfile_AddService(GATT_ALL_SERVICES);
+  bsp_init();
 
   // Setup a delayed profile startup
   osal_set_event(m_dispenser_task_id, SBP_START_DEVICE_EVT);
@@ -310,10 +309,6 @@ uint16 ble_dispenser_process_event(uint8 task_id, uint16 events)
 
   if (events & SBP_NOTIFY_EVT)
   {
-    attHandleValueNoti_t humi_meas;
-    humi_meas.len = 1;
-    humi_meas.value[0] = g_dispenser.click_count;
-    mcs_notify(MCS_ID_CHAR_CLICK_COUNT, g_gap_conn_handle, &humi_meas);
     LOG("Device notify data");
     return (events ^ SBP_NOTIFY_EVT);
   }
